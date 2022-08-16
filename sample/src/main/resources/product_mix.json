@@ -1,0 +1,41 @@
+{
+  "description": "A great product",
+  "hello": {
+    "name": "Bojan"
+  },
+  "name": "A product",
+  "pages": [
+    {
+      "size": 20,
+      "totalElements": 20,
+      "totalPages": 1,
+      "number": 1
+    },
+    {
+      "size": 20,
+      "totalElements": 20,
+      "totalPages": 1,
+      "number": 1
+    }
+  ],
+  "weight": 400,
+  "_links": {
+    "self": {
+      "href": "/product/987",
+      "templated": false
+    }
+  },
+  "_embedded": {
+    "manufacturer": {
+      "name": "Manufacturer Inc.",
+      "_links": {
+        "homepage": {
+          "href": "http://hoverdonkey.com"
+        },
+        "self": {
+          "href": "/manufacturers/328764"
+        }
+      }
+    }
+  }
+}

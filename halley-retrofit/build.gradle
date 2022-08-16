@@ -1,0 +1,38 @@
+plugins {
+    id "java-library"
+    alias libs.plugins.kotlin.jvm
+}
+
+kotlin {
+    explicitApi()
+}
+
+java {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        freeCompilerArgs += ['-Xjvm-default=all']
+    }
+}
+
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+}
+
+dependencies {
+    implementation libs.kotlin.core
+    implementation libs.kotlinx.serialization
+
+    api libs.library.core
+//    api project(":halley-core")
+    implementation libs.okhttp
+    implementation libs.retrofit
+}
+
+apply from: "publish.gradle"

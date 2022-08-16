@@ -1,0 +1,47 @@
+plugins {
+    id "java-library"
+    alias libs.plugins.kotlin.jvm
+    alias libs.plugins.kotlinx.serialization
+}
+
+kotlin {
+    explicitApi()
+}
+
+java {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        freeCompilerArgs += [
+                '-opt-in=kotlinx.serialization.ExperimentalSerializationApi',
+                '-Xjvm-default=all'
+        ]
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+}
+
+dependencies {
+    implementation libs.bundles.kotlin
+    api libs.kotlinx.serialization
+    implementation libs.okhttp
+    implementation libs.templates
+
+    testImplementation libs.bundles.test
+}
+
+tasks.withType(Test) {
+    javaLauncher = javaToolchains.launcherFor {
+        languageVersion = JavaLanguageVersion.of(8)
+    }
+    useJUnitPlatform()
+}
+
+apply from: "publish.gradle"

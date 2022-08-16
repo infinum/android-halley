@@ -1,0 +1,55 @@
+task deployCore(dependsOn: [
+        ':halley-core:clean',
+        ':halley-core:publishReleasePublicationToSonatypeRepository'
+]) {
+    group = "Deploy"
+    description = "Deploy module to repositories"
+}
+
+task deployRetrofit(dependsOn: [
+        ':halley-retrofit:clean',
+        ':halley-retrofit:publishReleasePublicationToSonatypeRepository'
+]) {
+    group = "Deploy"
+    description = "Deploy module to repositories"
+}
+
+task deployKtor(dependsOn: [
+        ':halley-ktor:clean',
+        ':halley-ktor:publishReleasePublicationToSonatypeRepository'
+]) {
+    group = "Deploy"
+    description = "Deploy module to repositories"
+}
+
+task deployPlugin(dependsOn: [
+        ':halley-plugin:clean',
+        ':halley-plugin:publishReleasePublicationToSonatypeRepository'
+]) {
+    group = "Deploy"
+    description = "Deploy module to repositories"
+}
+
+task deployAll(dependsOn: [
+        'deployCore',
+        'deployRetrofit',
+        'deployKtor',
+        'deployPlugin'
+]) {
+    group = "Deploy"
+    description = "Deploy all Halley modules to repositories"
+}
+
+task deployDebug(dependsOn: [
+        ':halley-core:clean',
+        ':halley-retrofit:clean',
+        ':halley-ktor:clean',
+        ':halley-plugin:clean',
+        ':halley-core:publishReleasePublicationToMavenLocal',
+        ':halley-retrofit:publishReleasePublicationToMavenLocal',
+        ':halley-ktor:publishReleasePublicationToMavenLocal',
+        ':halley-plugin:publishReleasePublicationToMavenLocal'
+]) {
+    group = "Deploy"
+    description = "Deploy all modules to Mavel Local repository"
+}

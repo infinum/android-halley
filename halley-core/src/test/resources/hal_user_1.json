@@ -1,0 +1,18 @@
+{
+  "_embedded": {
+    "user": {
+      "name": "Nika",
+      "_links": {
+        "self": {
+          "href": "http://localhost:8008/api/User/1"
+        }
+      }
+    }
+  },
+  "name": "Nika",
+  "_links": {
+    "self": {
+      "href": "http://localhost:8008/api/User/1"
+    }
+  }
+}

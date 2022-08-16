@@ -1,0 +1,1 @@
+{"_links":{"self":{"href":"http://localhost:8008/api/Profile/self"}},"_embedded":{"users":[{"_links":{"self":{"href":"http://localhost:8008/api/User/1"}}},{"_links":{"self":{"href":"http://localhost:8008/api/User/2"}}},{"_links":{"self":{"href":"http://localhost:8008/api/User/3"}}}]}}

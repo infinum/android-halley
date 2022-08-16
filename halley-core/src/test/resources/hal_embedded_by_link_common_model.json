@@ -1,0 +1,11 @@
+{
+  "_links": {
+    "self": {
+      "href": "http://localhost:8008/api/Profile/self"
+    },
+    "user": {
+      "href": "http://localhost:8008/api/User/1?approved=false"
+    }
+  },
+  "_embedded": {}
+}

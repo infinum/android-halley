@@ -1,0 +1,58 @@
+{
+  "_embedded": {
+    "item": [
+      {
+        "name": "Niko",
+        "timezone": "Europe/Zagreb",
+        "_links": {
+          "self": {
+            "href": "http://localhost:8080/api/Profile/34d43605-5afa-4942-9cd8-469d3bd7d25c"
+          },
+          "user": {
+            "href": "http://localhost:8080/api/User/52e55a79-26e2-4f78-8a82-8c9f31373158"
+          }
+        }
+      },
+      {
+        "name": "Marko",
+        "timezone": "Europe/Berlin",
+        "_links": {
+          "self": {
+            "href": "http://localhost:8080/api/Profile/dd67052d-5b89-4d4b-b340-75be68e544d2"
+          },
+          "user": {
+            "href": "http://localhost:8080/api/User/19c08d83-16da-4593-95fb-64d5c939e0c3"
+          }
+        }
+      },
+      {
+        "name": "Ivan",
+        "timezone": "Europe/Berlin",
+        "_links": {
+          "self": {
+            "href": "http://localhost:8080/api/Profile/fc7e5967-4758-4435-9cca-82aa6ec0a0c1"
+          },
+          "user": {
+            "href": "http://localhost:8080/api/User/3d922476-453d-4633-8ce5-86cf659fe6ac"
+          }
+        }
+      }
+    ]
+  },
+  "_links": {
+    "self": {
+      "href": "http://localhost:8080/api/Profile/block"
+    },
+    "item": [
+      {
+        "href": "http://localhost:8080/api/Profile/34d43605-5afa-4942-9cd8-469d3bd7d25c"
+      },
+      {
+        "href": "http://localhost:8080/api/Profile/dd67052d-5b89-4d4b-b340-75be68e544d2"
+      },
+      {
+        "href": "http://localhost:8080/api/Profile/fc7e5967-4758-4435-9cca-82aa6ec0a0c1"
+      }
+    ]
+  }
+}

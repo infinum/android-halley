@@ -1,0 +1,1 @@
+{"name":"Bolt","_links":{"self":{"href":"http://localhost:8008/api/Profile/self"}},"_embedded":{"user":{"_links":{"self":{"href":"http://localhost:8008/api/User/self"}}}}}

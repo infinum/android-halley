@@ -1,0 +1,10 @@
+{
+  "_embedded": {},
+  "name": "Stiv",
+  "age": 2,
+  "_links": {
+    "self": {
+      "href": "http://localhost:8080/api/Animal/1"
+    }
+  }
+}

@@ -1,0 +1,88 @@
+buildscript {
+    repositories {
+        google()
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath libs.tools.gradle
+        classpath libs.library.plugin
+    }
+}
+
+plugins {
+    alias libs.plugins.android.application
+    alias libs.plugins.kotlin.android
+}
+
+apply plugin: "com.infinum.halley.plugin"
+
+android {
+    compileSdkVersion buildConfig.compileSdk
+    buildToolsVersion buildConfig.buildTools
+
+    defaultConfig {
+        minSdkVersion buildConfig.minSdk
+        targetSdkVersion buildConfig.targetSdk
+        versionCode releaseConfig.versionCode
+        versionName releaseConfig.version
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        dummy {
+            storeFile file("dummy.jks")
+            storePassword "dummydummy"
+            keyAlias "dummy"
+            keyPassword "dummydummy"
+        }
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+            applicationIdSuffix ".debug"
+        }
+        release {
+            debuggable false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.dummy
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+    sourceSets.each {
+        it.java.srcDirs += "src/$it.name/kotlin"
+    }
+    buildFeatures {
+        viewBinding = true
+    }
+}
+
+dependencies {
+    implementation libs.library.retrofit
+    implementation libs.library.ktor
+//    implementation project(":halley-retrofit")
+//    implementation project(":halley-ktor")
+
+    implementation libs.kotlin.core
+    implementation libs.bundles.androidx
+    implementation libs.material
+
+    implementation libs.bundles.okhttp
+    implementation libs.mockwebserver
+
+    implementation libs.bundles.retrofit
+    implementation libs.bundles.ktor
+
+    implementation libs.bundles.coroutines
+    implementation libs.bundles.rxjava
+}

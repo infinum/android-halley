@@ -1,0 +1,17 @@
+ext {
+    def major = 0
+    def minor = 0
+    def patch = 1
+
+    buildConfig = [
+            "minSdk"    : 21,
+            "compileSdk": 32,
+            "targetSdk" : 32,
+            "buildTools": "32.0.0"
+    ]
+    releaseConfig = [
+            "group"      : "com.infinum.halley",
+            "version"    : "$major.$minor.$patch",
+            "versionCode": major * 100 * 100 + minor * 100 + patch
+    ]
+}

@@ -1,0 +1,69 @@
+plugins {
+    id "java-gradle-plugin"
+    alias libs.plugins.kotlin.jvm
+}
+
+kotlin {
+    explicitApi()
+}
+
+java {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+}
+
+compileKotlin {
+    kotlinOptions {
+        freeCompilerArgs += [
+                '-Xjvm-default=all'
+        ]
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+gradlePlugin {
+    plugins {
+        halley {
+            id = "com.infinum.halley.plugin"
+            displayName = "Halley"
+            description = "Gradle plugin which provides single entry point for JSON HAL serialzers and deserializers."
+            implementationClass = "com.infinum.halley.plugin.HalleyPlugin"
+        }
+    }
+}
+
+dependencies {
+    implementation libs.kotlin.core
+    compileOnly gradleApi()
+    compileOnly libs.tools.gradle
+}
+
+apply from: "publish.gradle"
+
+def versionDirectory = "$buildDir/generated/version/"
+
+sourceSets {
+    main.java.srcDir versionDirectory
+}
+
+task pluginVersion {
+    def outputDir = file(versionDirectory)
+
+    inputs.property 'version', releaseConfig.version
+    outputs.dir outputDir
+
+    doLast {
+        def versionFile = file("$outputDir/com/infinum/halley/plugin/version.kt")
+        versionFile.parentFile.mkdirs()
+        versionFile.text = """// Generated file. Do not edit!
+package com.infinum.halley.plugin
+internal const val halleyVersion = "${releaseConfig.version}"
+"""
+    }
+}
+
+tasks.getByName('compileKotlin').dependsOn('pluginVersion')

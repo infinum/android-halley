@@ -1,0 +1,15 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.name = "Halley"
+
+include ':halley-core'
+include ':halley-retrofit'
+include ':halley-ktor'
+include ':halley-plugin'
+include ':sample'

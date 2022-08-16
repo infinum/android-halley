@@ -1,0 +1,24 @@
+{
+  "description": "A great product",
+  "name": "A product",
+  "weight": 400,
+  "_links": {
+    "self": {
+      "href": "/product/987",
+      "templated": false
+    }
+  },
+  "_embedded": {
+    "manufacturer": {
+      "name": "Manufacturer Inc.",
+      "_links": {
+        "homepage": {
+          "href": "http://hoverdonkey.com"
+        },
+        "self": {
+          "href": "/manufacturers/328764"
+        }
+      }
+    }
+  }
+}

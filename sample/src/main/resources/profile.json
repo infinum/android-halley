@@ -1,0 +1,25 @@
+{
+  "_embedded": {
+    "user": {
+      "email": "niko@infinum.com",
+      "_links": {
+        "self": {
+          "href": "http://localhost:8080/api/User/self"
+        },
+        "animal": {
+          "href": "http://localhost:8080/api/Animal/3"
+        }
+      }
+    }
+  },
+  "name": "Niko",
+  "timezone": "Europe/Zagreb",
+  "_links": {
+    "self": {
+      "href": "http://localhost:8080/api/Profile/self"
+    },
+    "blocked": {
+      "href": "http://localhost:8080/api/Profile/block"
+    }
+  }
+}
