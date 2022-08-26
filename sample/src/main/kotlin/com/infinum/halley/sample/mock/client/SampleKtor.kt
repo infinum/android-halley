@@ -21,13 +21,17 @@ class SampleKtor(
     private val httpClient: OkHttpClient
 ) {
 
+    companion object {
+        private const val PORT = 8080
+    }
+
     private val client = HttpClient(CIO) {
         defaultRequest {
             url {
                 protocol = URLProtocol.HTTP
                 host = "localhost"
             }
-            port = 8080
+            port = PORT
             contentType(ContentType.HAL)
             halOptions(
                 common = Arguments.Common(

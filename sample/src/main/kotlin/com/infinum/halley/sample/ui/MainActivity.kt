@@ -32,6 +32,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+@Suppress("TooManyFunctions")
 class MainActivity : AppCompatActivity() {
 
     private lateinit var webServer: SampleWebServer
@@ -84,13 +85,19 @@ class MainActivity : AppCompatActivity() {
 
             retrofitCoroutines.setOnClickListener { retrofitCoroutines() }
             retrofitCoroutinesCachedParameters.setOnClickListener { retrofitCoroutinesCachedParameters() }
-            retrofitCoroutinesAnnotatedParameters.setOnClickListener { retrofitCoroutinesAnnotatedParameters() }
-            retrofitCoroutinesAnnotatedAndCachedParameters.setOnClickListener { retrofitCoroutinesAnnotatedAndCachedParameters() }
+            retrofitCoroutinesAnnotatedParameters.setOnClickListener {
+                retrofitCoroutinesAnnotatedParameters()
+            }
+            retrofitCoroutinesAnnotatedAndCachedParameters.setOnClickListener {
+                retrofitCoroutinesAnnotatedAndCachedParameters()
+            }
 
             retrofitRxjava.setOnClickListener { retrofitRxJava() }
             retrofitRxjavaCachedParameters.setOnClickListener { retrofitRxJavaCachedParameters() }
             retrofitRxjavaAnnotatedParameters.setOnClickListener { retrofitRxJavaAnnotatedParameters() }
-            retrofitRxjavaAnnotatedAndCachedParameters.setOnClickListener { retrofitRxJavaAnnotatedAndCachedParameters() }
+            retrofitRxjavaAnnotatedAndCachedParameters.setOnClickListener {
+                retrofitRxJavaAnnotatedAndCachedParameters()
+            }
 
             ktor.setOnClickListener { ktor() }
             ktorWithParameters.setOnClickListener { ktorWithParameters() }
@@ -103,6 +110,7 @@ class MainActivity : AppCompatActivity() {
         webServer.stop()
     }
 
+    @Suppress("LongMethod")
     private fun coreSerialization() {
         val halley = Halley(
             configuration = Halley.Configuration(

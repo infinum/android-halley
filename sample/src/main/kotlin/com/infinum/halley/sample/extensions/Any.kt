@@ -1,11 +1,10 @@
 package com.infinum.halley.sample.extensions
 
-fun Any.prettyPrint(): String {
+fun Any.prettyPrint(indent: Int = 4): String {
 
     var indentLevel = 0
-    val indentWidth = 4
 
-    fun padding() = "".padStart(indentLevel * indentWidth)
+    fun padding() = "".padStart(indentLevel * indent)
 
     val toString = toString()
 
