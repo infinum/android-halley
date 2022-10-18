@@ -1,4 +1,4 @@
-![Download](https://img.shields.io/maven-central/v/com.infinum.halley/halley) ![Validate Gradle Wrapper](https://github.com/infinum/android-halley/workflows/Validate%20Gradle%20Wrapper/badge.svg)
+![Download](https://img.shields.io/maven-central/v/com.infinum.halley/halley-core) ![Validate Gradle Wrapper](https://github.com/infinum/android-halley/workflows/Validate%20Gradle%20Wrapper/badge.svg)
 
 ### <img align="left" src="logo.svg" width="48">
 
@@ -13,7 +13,7 @@ _Halley_ is built on top of [KotlinX Serialization](https://github.com/Kotlin/ko
 ## Getting started
 
 There are several ways to include _Halley_ in your project, depending on your use case.  
-In every case, you should include and apply _Halley_ plugin first. PLugin will include core dependencies and apply KotlinX Serialization in your project.  
+In every case, you should include and apply _Halley_ plugin first. Plugin will include core dependencies and apply KotlinX Serialization in your project.  
 You have to add buildscript dependencies in your project level `build.gradle` or `build.gradle.kts`:
 
 ### Core - with Halley plugin
@@ -166,7 +166,7 @@ val actual: HalModel = halley.decodeFromString(
 
 ```kotlin
 Retrofit.Builder()
-    .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+    .addCallAdapterFactory(RxJava3CallAdapterFactory.create()) // Optional only if you use RxJava
     // Halley for Retrofit provides an extension on KotlinX Serialization Json 
     .addConverterFactory(Json.asHalleyConverterFactory())
     .addConverterFactory(ScalarsConverterFactory.create())
@@ -194,7 +194,7 @@ HttpClient(CIO) {
     }
 }
 ```
-## Models
+# Models
 A typical HAL model class prepared for _Halley_ consists of several parts.
 ```kotlin
 @Serializable
@@ -223,7 +223,8 @@ Going from top to bottom, these classes must obey the following list of rules:
 * HAL _embedded_ properties must be annotated with `@HalEmbedded`
 * Objects under `@HalEmbedded` annotated property must also implement `HalResource` interface.
 
-Additionally, there are some limitations and comments about `HalResource` models:
+## Comments and limitations
+A few notes about `HalResource` models:
 * Kotlin `object` classes are not supported in _Halley_.
 * Multiple `Link` classes in one property under one `@HalLink` annotation are supported by using `List`, `Iterable`, `Set`, `Collection` interfaces and `Array` class only.
 * Multiple embedded classes in one property under one `@HalEmbedded` annotation are supported by using `List`, `Iterable`, `Set`, `Collection` interfaces and `Array` class only.
