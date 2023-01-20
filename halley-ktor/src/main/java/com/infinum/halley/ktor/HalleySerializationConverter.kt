@@ -24,11 +24,11 @@ public class HalleySerializationConverter(
     private var options: Halley.Options? = null
 
     @Suppress("UNCHECKED_CAST")
-    override suspend fun serialize(
+    override suspend fun serializeNullable(
         contentType: ContentType,
         charset: Charset,
         typeInfo: TypeInfo,
-        value: Any
+        value: Any?
     ): OutgoingContent {
         val content = halley.encodeToString(
             typeInfo.type as KClass<HalResource>,

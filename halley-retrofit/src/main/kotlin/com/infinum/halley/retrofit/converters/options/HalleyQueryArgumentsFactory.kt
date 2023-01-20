@@ -23,9 +23,9 @@ internal class HalleyQueryArgumentsFactory :
                     annotationParameters(it.arguments) + cacheParameters(it.key)
                 )
             } else {
-                null
+                HalleyOptions.query()
             }
-        }
+        } ?: HalleyOptions.query()
 
     override fun annotationParameters(parameters: Array<HalQueryArgument>): HalleyKeyedMap =
         parameters

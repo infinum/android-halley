@@ -9,6 +9,12 @@ import com.infinum.halley.retrofit.cache.HalleyOptions
 internal class HalleyTemplateArgumentsFactory :
     OptionFactory<Arguments.Template?, HalTemplateArgument, HalleyKeyedMap> {
 
+    /*
+        Cases:
+        imperativan key - vrati samo
+        anotation key - populiraj
+
+     */
     override operator fun invoke(annotations: Array<out Annotation>): Arguments.Template? =
         (annotations.find { it.annotationClass == HalTemplateArguments::class } as? HalTemplateArguments)?.let {
             if (it.key.isBlank() && it.arguments.isNotEmpty()) {
@@ -23,9 +29,9 @@ internal class HalleyTemplateArgumentsFactory :
                     annotationParameters(it.arguments) + cacheParameters(it.key)
                 )
             } else {
-                null
+                HalleyOptions.template()
             }
-        }
+        } ?: HalleyOptions.template()
 
     override fun annotationParameters(parameters: Array<HalTemplateArgument>): HalleyKeyedMap =
         parameters

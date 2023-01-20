@@ -66,11 +66,11 @@ public class HalleyPlugin internal constructor(
 
                 val serializedContent: OutgoingContent =
                     matchingRegistrations.firstNotNullOfOrNull { registration ->
-                        registration.converter.serialize(
-                            contentType,
-                            contentType.charset() ?: Charsets.UTF_8,
-                            context.bodyType!!,
-                            payload
+                        registration.converter.serializeNullable(
+                            contentType = contentType,
+                            charset = contentType.charset() ?: Charsets.UTF_8,
+                            typeInfo = context.bodyType!!,
+                            value = payload
                         )
                     } ?: throw HalleyConverterException(
                         payload,

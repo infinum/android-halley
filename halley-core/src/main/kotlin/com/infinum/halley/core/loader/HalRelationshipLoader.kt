@@ -61,17 +61,26 @@ internal class HalRelationshipLoader : RelationshipLoader {
 
     private fun replaceTemplatePlaceholders(request: RelationshipRequest.Single): String? =
         if (request.templated) {
-            request.options?.let { buildTemplate(request, it.template) }
+            request.options?.let { buildTemplate(request, it.common, it.template) }
         } else {
             request.url
         }
 
+    /**
+     * When adding multiple maps, last map keys overwrite
+     * any previous from any previous map in the sum.
+     */
     private fun buildTemplate(
         request: RelationshipRequest.Single,
-        arguments: Arguments.Template?
-    ) = arguments?.let { template ->
-        template[request.name]?.let { map ->
-            buildTemplateWithParameters(request.url, map)
+        commonArguments: Arguments.Common?,
+        templateArguments: Arguments.Template?
+    ): String {
+        val allArguments = commonArguments.orEmpty() + templateArguments.orEmpty()
+        return allArguments[request.name]?.let { map ->
+            @Suppress("UNCHECKED_CAST")
+            buildTemplateWithParameters(request.url, map as HalleyMap)
+        } ?: run {
+            sanitizedTemplateUrlWithoutParameters(request.url)
         }
     }
 
@@ -82,6 +91,12 @@ internal class HalRelationshipLoader : RelationshipLoader {
             .set(arguments)
             .expand()
 
+    private fun sanitizedTemplateUrlWithoutParameters(url: String): String =
+        UriTemplate
+            .buildFromTemplate(url)
+            .build()
+            .expand()
+
     private fun appendParameters(
         url: String,
         name: String,
@@ -89,9 +104,6 @@ internal class HalRelationshipLoader : RelationshipLoader {
     ): String {
         val uriBuilder = UriBuilder(url)
 
-        parameters?.common?.forEach { entry ->
-            uriBuilder.appendQueryParameter(entry.key, entry.value)
-        }
         parameters?.query?.get(name)?.forEach { entry ->
             uriBuilder.appendQueryParameter(entry.key, entry.value)
         }
