@@ -7,13 +7,7 @@ public class HalleyPlugin : Plugin<Project> {
 
     override fun apply(project: Project): Unit =
         with(project) {
-            addRepositories(this)
             addDependencies(this)
-        }
-
-    private fun addRepositories(project: Project) =
-        with(project.repositories) {
-            mavenCentral()
         }
 
     private fun addDependencies(project: Project) {
