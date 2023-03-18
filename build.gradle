@@ -14,15 +14,6 @@ plugins {
     alias libs.plugins.dokka apply false
 }
 
-allprojects {
-
-    repositories {
-        google()
-        mavenLocal()
-        mavenCentral()
-    }
-}
-
 subprojects {
     apply from: "$rootDir/cpd.gradle"
     apply from: "$rootDir/detekt.gradle"

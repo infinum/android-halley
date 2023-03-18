@@ -8,27 +8,44 @@ import com.infinum.halley.retrofit.annotations.HalArgumentEntry
 import com.infinum.halley.retrofit.annotations.HalQueryArgument
 import com.infinum.halley.retrofit.annotations.HalTemplateArgument
 
-internal class HalleyOptionsFactory(
-    private val commonFactory: OptionFactory<Arguments.Common?, HalArgumentEntry, HalleyMap>,
-    private val queryFactory: OptionFactory<Arguments.Query?, HalQueryArgument, HalleyKeyedMap>,
-    private val templateFactory: OptionFactory<Arguments.Template?, HalTemplateArgument, HalleyKeyedMap>
-) : OptionFactory<Halley.Options, Unit, Unit> {
+internal object HalleyOptionsFactory {
 
-    override operator fun invoke(annotations: Array<out Annotation>): Halley.Options {
+    private var annotations: Array<out Annotation> = emptyArray()
+
+    private var options: Halley.Options? = null
+
+    private val commonFactory: OptionFactory<Arguments.Common?, HalArgumentEntry, HalleyMap> =
+        HalleyCommonArgumentsFactory()
+    private val queryFactory: OptionFactory<Arguments.Query?, HalQueryArgument, HalleyKeyedMap> =
+        HalleyQueryArgumentsFactory()
+    private val templateFactory: OptionFactory<Arguments.Template?, HalTemplateArgument, HalleyKeyedMap> =
+        HalleyTemplateArgumentsFactory()
+
+    fun setAnnotations(annotations: Array<out Annotation>) {
+        this.annotations = annotations
+
         val common: Arguments.Common? = commonFactory(annotations)
-
         val query: Arguments.Query? = queryFactory(annotations)
-
         val templated: Arguments.Template? = templateFactory(annotations)
 
-        return Halley.Options(
+        this.options = Halley.Options(
             common = common,
             query = query,
             template = templated
         )
     }
 
-    override fun annotationParameters(parameters: Array<Unit>) = Unit
+    fun options(): Halley.Options? {
+        val common: Arguments.Common? = commonFactory(this.annotations)
+        val query: Arguments.Query? = queryFactory(this.annotations)
+        val templated: Arguments.Template? = templateFactory(this.annotations)
 
-    override fun cacheParameters(key: String) = Unit
+        this.options = Halley.Options(
+            common = common,
+            query = query,
+            template = templated
+        )
+
+        return this.options
+    }
 }
