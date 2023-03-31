@@ -7,6 +7,7 @@ import com.infinum.halley.core.serializers.hal.models.HalResource
 import com.infinum.halley.core.serializers.link.models.Link
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 
 @Serializable
 data class ProfileResource(
@@ -27,7 +28,10 @@ data class ProfileResource(
 
     @HalEmbedded
     @SerialName(value = "user")
-    val user: UserResource? = null
+    val user: UserResource? = null,
+
+    @Transient
+    val age: Int = 40
 
 ) : HalResource
 // CPD-ON

@@ -1,6 +1,12 @@
 Changelog
 =========
 
+## Version 0.0.4
+
+_2023-03-31_
+
+* Consume KotlinX Serialization Transient annotation in serialization and deserialization.
+
 ## Version 0.0.3
 
 _2023-03-17_

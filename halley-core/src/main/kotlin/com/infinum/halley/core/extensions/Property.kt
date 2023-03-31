@@ -8,9 +8,13 @@ import kotlin.reflect.KProperty1
 import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.jvm.javaField
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Transient
 
 internal fun KProperty1<out HalResource, *>.extractName(): String =
     this.findAnnotation<SerialName>()?.value ?: this.name
+
+internal fun KProperty1<out HalResource, *>.isTransient(): Boolean =
+    this.findAnnotation<Transient>() != null
 
 internal fun KProperty1<out HalResource, *>.extractValue(value: HalResource): Any? =
     this.getter.call(value)

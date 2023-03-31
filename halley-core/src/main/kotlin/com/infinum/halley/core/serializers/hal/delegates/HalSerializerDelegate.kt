@@ -13,6 +13,7 @@ import com.infinum.halley.core.extensions.isCollection
 import com.infinum.halley.core.extensions.isHalEmbedded
 import com.infinum.halley.core.extensions.isHalLink
 import com.infinum.halley.core.extensions.isSet
+import com.infinum.halley.core.extensions.isTransient
 import com.infinum.halley.core.extensions.toJsonPrimitive
 import com.infinum.halley.core.serializers.embedded.models.EmbeddedHolder
 import com.infinum.halley.core.serializers.hal.HalSerializer
@@ -46,6 +47,7 @@ internal class HalSerializerDelegate<T : HalResource>(
 
         klazz.memberProperties
             .toList()
+            .filterNot { it.isTransient() }
             .forEach { property: KProperty1<out HalResource, *> ->
                 when {
                     property.isHalLink() -> links.add(collectLink(property))

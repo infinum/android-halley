@@ -4,6 +4,7 @@ import com.infinum.halley.core.Halley
 import com.infinum.halley.core.extensions.extractName
 import com.infinum.halley.core.extensions.isHalEmbedded
 import com.infinum.halley.core.extensions.isHalLink
+import com.infinum.halley.core.extensions.isTransient
 import com.infinum.halley.core.serializers.embedded.delegates.EmbeddedDeserializerDelegate
 import com.infinum.halley.core.serializers.hal.models.HalResource
 import com.infinum.halley.core.serializers.link.delegates.LinkDeserializerDelegate
@@ -30,6 +31,7 @@ internal class HalDeserializerDelegate(
         result::class
             .memberProperties
             .toList()
+            .filterNot { it.isTransient() }
             .forEach { property: KProperty1<out HalResource, *> ->
                 val name = property.extractName()
                 when {

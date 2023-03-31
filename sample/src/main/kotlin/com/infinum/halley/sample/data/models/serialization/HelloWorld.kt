@@ -9,5 +9,5 @@ data class HelloWorld(
 
     @SerialName(value = "name")
     val name: String
-    
+
 ) : HalResource
