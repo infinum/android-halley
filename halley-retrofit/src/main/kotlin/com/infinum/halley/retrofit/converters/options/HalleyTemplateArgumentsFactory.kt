@@ -4,7 +4,6 @@ import com.infinum.halley.core.serializers.link.models.templated.params.Argument
 import com.infinum.halley.core.typealiases.HalleyKeyedMap
 import com.infinum.halley.retrofit.annotations.HalTemplateArgument
 import com.infinum.halley.retrofit.annotations.HalTemplateArguments
-import com.infinum.halley.retrofit.cache.HalleyOptions
 import com.infinum.halley.retrofit.cache.HalleyOptionsCache
 
 internal class HalleyTemplateArgumentsFactory(

@@ -2,9 +2,7 @@ package com.infinum.halley.retrofit.converters
 
 import com.infinum.halley.core.Halley
 import com.infinum.halley.core.serializers.hal.models.HalResource
-import com.infinum.halley.retrofit.converters.options.HalleyOptionsFactory
 import java.lang.reflect.Type
-import java.util.UUID
 import okhttp3.ResponseBody
 import retrofit2.Converter
 
