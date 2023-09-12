@@ -5,9 +5,11 @@ import com.infinum.halley.core.typealiases.HalleyKeyedMap
 import com.infinum.halley.retrofit.annotations.HalTemplateArgument
 import com.infinum.halley.retrofit.annotations.HalTemplateArguments
 import com.infinum.halley.retrofit.cache.HalleyOptions
+import com.infinum.halley.retrofit.cache.HalleyOptionsCache
 
-internal class HalleyTemplateArgumentsFactory :
-    OptionFactory<Arguments.Template?, HalTemplateArgument, HalleyKeyedMap> {
+internal class HalleyTemplateArgumentsFactory(
+    private val tag: String
+) : OptionFactory<Arguments.Template?, HalTemplateArgument, HalleyKeyedMap> {
 
     /*
         Cases:
@@ -29,9 +31,9 @@ internal class HalleyTemplateArgumentsFactory :
                     annotationParameters(it.arguments) + cacheParameters(it.key)
                 )
             } else {
-                HalleyOptions.template()
+                HalleyOptionsCache.get(tag)?.template()
             }
-        } ?: HalleyOptions.template()
+        } ?: HalleyOptionsCache.get(tag)?.template()
 
     override fun annotationParameters(parameters: Array<HalTemplateArgument>): HalleyKeyedMap =
         parameters
@@ -42,5 +44,5 @@ internal class HalleyTemplateArgumentsFactory :
             }
 
     override fun cacheParameters(key: String): HalleyKeyedMap =
-        HalleyOptions.template()?.filterKeys { it == key } ?: mapOf()
+        HalleyOptionsCache.get(tag)?.template()?.filterKeys { it == key } ?: mapOf()
 }

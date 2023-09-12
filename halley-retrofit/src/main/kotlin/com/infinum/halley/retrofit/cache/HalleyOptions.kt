@@ -3,13 +3,18 @@ package com.infinum.halley.retrofit.cache
 import com.infinum.halley.core.serializers.link.models.templated.params.Arguments
 import com.infinum.halley.core.typealiases.HalleyKeyedMap
 import com.infinum.halley.core.typealiases.HalleyMap
+import com.infinum.halley.retrofit.converters.options.HalleyOptionsFactory
 
-internal object HalleyOptions {
+/*
+This cannot be an object because integrators need to clear the arguments explitcity.
+This needs to be constructed per call site. Convert to class.
+ */
+internal data class HalleyOptions(
+    var common: Arguments.Common? = null,
+    var query: Arguments.Query? = null,
+    var template: Arguments.Template? = null
 
-    internal var common: Arguments.Common? = null
-    internal var query: Arguments.Query? = null
-    internal var template: Arguments.Template? = null
-
+) {
     internal fun common(): Arguments.Common? = this.common
 
     internal fun query(): Arguments.Query? = this.query
@@ -17,20 +22,68 @@ internal object HalleyOptions {
     internal fun template(): Arguments.Template? = this.template
 }
 
-public fun halleyCommonOptions(value: () -> HalleyMap) {
-    HalleyOptions.apply {
-        this.common = Arguments.Common(value.invoke())
-    }
+public fun halleyCommonOptions(tag: String, value: () -> HalleyMap) {
+    HalleyOptionsFactory.addTag(tag)
+
+    val exists = HalleyOptionsCache.check(tag)
+
+    val newOption: HalleyOptions =
+        if (exists) {
+            val option = HalleyOptionsCache.get(tag)
+            option?.copy(
+                common = Arguments.Common(value.invoke())
+            ) ?: HalleyOptions(
+                common = Arguments.Common(value.invoke())
+            )
+        } else {
+            HalleyOptions(
+                common = Arguments.Common(value.invoke())
+            )
+        }
+
+    HalleyOptionsCache.put(tag, newOption)
 }
 
-public fun halleyQueryOptions(value: () -> HalleyKeyedMap) {
-    HalleyOptions.apply {
-        this.query = Arguments.Query(value.invoke())
-    }
+public fun halleyQueryOptions(tag: String, value: () -> HalleyKeyedMap) {
+    HalleyOptionsFactory.addTag(tag)
+
+    val exists = HalleyOptionsCache.check(tag)
+
+    val newOption: HalleyOptions =
+        if (exists) {
+            val option = HalleyOptionsCache.get(tag)
+            option?.copy(
+                query = Arguments.Query(value.invoke())
+            ) ?: HalleyOptions(
+                query = Arguments.Query(value.invoke())
+            )
+        } else {
+            HalleyOptions(
+                query = Arguments.Query(value.invoke())
+            )
+        }
+
+    HalleyOptionsCache.put(tag, newOption)
 }
 
-public fun halleyTemplateOptions(value: () -> HalleyKeyedMap) {
-    HalleyOptions.apply {
-        this.template = Arguments.Template(value.invoke())
-    }
+public fun halleyTemplateOptions(tag: String, value: () -> HalleyKeyedMap) {
+    HalleyOptionsFactory.addTag(tag)
+
+    val exists = HalleyOptionsCache.check(tag)
+
+    val newOption: HalleyOptions =
+        if (exists) {
+            val option = HalleyOptionsCache.get(tag)
+            option?.copy(
+                template = Arguments.Template(value.invoke())
+            ) ?: HalleyOptions(
+                template = Arguments.Template(value.invoke())
+            )
+        } else {
+            HalleyOptions(
+                template = Arguments.Template(value.invoke())
+            )
+        }
+
+    HalleyOptionsCache.put(tag, newOption)
 }

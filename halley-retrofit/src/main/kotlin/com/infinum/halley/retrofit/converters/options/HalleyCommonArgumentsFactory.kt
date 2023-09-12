@@ -5,9 +5,11 @@ import com.infinum.halley.core.typealiases.HalleyMap
 import com.infinum.halley.retrofit.annotations.HalArgumentEntry
 import com.infinum.halley.retrofit.annotations.HalCommonArguments
 import com.infinum.halley.retrofit.cache.HalleyOptions
+import com.infinum.halley.retrofit.cache.HalleyOptionsCache
 
-internal class HalleyCommonArgumentsFactory :
-    OptionFactory<Arguments.Common?, HalArgumentEntry, HalleyMap> {
+internal class HalleyCommonArgumentsFactory(
+    private val tag: String
+) : OptionFactory<Arguments.Common?, HalArgumentEntry, HalleyMap> {
 
     override operator fun invoke(annotations: Array<out Annotation>): Arguments.Common? =
         (annotations.find { it.annotationClass == HalCommonArguments::class } as? HalCommonArguments)?.let {
@@ -30,5 +32,5 @@ internal class HalleyCommonArgumentsFactory :
         }
 
     override fun cacheParameters(key: String): HalleyMap =
-        HalleyOptions.common()?.mappedValues ?: mapOf()
+        HalleyOptionsCache.get(tag)?.common()?.mappedValues ?: mapOf()
 }

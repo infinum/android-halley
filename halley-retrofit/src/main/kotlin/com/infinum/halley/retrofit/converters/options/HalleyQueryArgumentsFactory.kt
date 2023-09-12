@@ -5,9 +5,11 @@ import com.infinum.halley.core.typealiases.HalleyKeyedMap
 import com.infinum.halley.retrofit.annotations.HalQueryArgument
 import com.infinum.halley.retrofit.annotations.HalQueryArguments
 import com.infinum.halley.retrofit.cache.HalleyOptions
+import com.infinum.halley.retrofit.cache.HalleyOptionsCache
 
-internal class HalleyQueryArgumentsFactory :
-    OptionFactory<Arguments.Query?, HalQueryArgument, HalleyKeyedMap> {
+internal class HalleyQueryArgumentsFactory(
+    private val tag: String
+) : OptionFactory<Arguments.Query?, HalQueryArgument, HalleyKeyedMap> {
 
     override operator fun invoke(annotations: Array<out Annotation>): Arguments.Query? =
         (annotations.find { it.annotationClass == HalQueryArguments::class } as? HalQueryArguments)?.let {
@@ -23,9 +25,9 @@ internal class HalleyQueryArgumentsFactory :
                     annotationParameters(it.arguments) + cacheParameters(it.key)
                 )
             } else {
-                HalleyOptions.query()
+                HalleyOptionsCache.get(tag)?.query()
             }
-        } ?: HalleyOptions.query()
+        } ?: HalleyOptionsCache.get(tag)?.query()
 
     override fun annotationParameters(parameters: Array<HalQueryArgument>): HalleyKeyedMap =
         parameters
@@ -36,5 +38,5 @@ internal class HalleyQueryArgumentsFactory :
             }
 
     override fun cacheParameters(key: String): HalleyKeyedMap =
-        HalleyOptions.query()?.filterKeys { it == key } ?: mapOf()
+        HalleyOptionsCache.get(tag)?.query()?.filterKeys { it == key } ?: mapOf()
 }

@@ -5,6 +5,7 @@ import com.infinum.halley.retrofit.annotations.HalArgumentEntry
 import com.infinum.halley.retrofit.annotations.HalCommonArguments
 import com.infinum.halley.retrofit.annotations.HalQueryArgument
 import com.infinum.halley.retrofit.annotations.HalQueryArguments
+import com.infinum.halley.retrofit.annotations.HalTag
 import com.infinum.halley.retrofit.annotations.HalTemplateArgument
 import com.infinum.halley.retrofit.annotations.HalTemplateArguments
 import com.infinum.halley.sample.data.models.deserialization.ProfileResource
@@ -19,6 +20,7 @@ interface SampleRxService {
     @GET("/Profile/self")
     @HalQueryArguments(key = "animal")
     @HalTemplateArguments(key = "animal")
+    @HalTag("Test4")
     fun profileWithOptionsFromCache(): Single<ProfileResource>
 
     @GET("/Profile/self")
@@ -70,6 +72,7 @@ interface SampleRxService {
             )
         ]
     )
+    @HalTag("Test2")
     fun profileWithOptionsFromAnnotationAndCache(): Single<ProfileResource>
 }
 // CPD-ON

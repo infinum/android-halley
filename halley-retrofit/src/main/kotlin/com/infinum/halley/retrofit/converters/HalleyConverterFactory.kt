@@ -23,10 +23,11 @@ internal class HalleyConverterFactory(
         annotations: Array<out Annotation>,
         retrofit: Retrofit
     ): Converter<ResponseBody, *>? {
-        HalleyOptionsFactory.setAnnotations(annotations)
+        val options = HalleyOptionsFactory.options(annotations)
         return HalleyDeserializationConverter<HalResource>(
             halley,
-            type
+            type,
+            options
         )
     }
 

@@ -21,6 +21,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.SingleObserver
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.util.UUID
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
@@ -281,10 +282,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun retrofitCachedParameters() {
-        halleyQueryOptions {
+        val tag = "Test1"
+        halleyQueryOptions(tag = tag) {
             mapOf("animal" to mapOf("country" to "Brazil"))
         }
-        halleyTemplateOptions {
+        halleyTemplateOptions(tag = tag) {
             mapOf("animal" to mapOf("id" to "1"))
         }
         webServer.client()?.service?.profileWithOptionsFromCache()
@@ -323,10 +325,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun retrofitAnnotatedAndCachedParameters() {
-        halleyQueryOptions {
+        val tag = "Test3"
+        halleyQueryOptions(tag) {
             mapOf("animal" to mapOf("country" to "Brazil"))
         }
-        halleyTemplateOptions {
+        halleyTemplateOptions(tag) {
             mapOf("animal" to mapOf("id" to "1"))
         }
         webServer.client()?.service?.profileWithOptionsFromAnnotationAndCache()
@@ -363,10 +366,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun retrofitCoroutinesCachedParameters() {
-        halleyQueryOptions {
+        val tag = "Test6"
+        halleyQueryOptions(tag) {
             mapOf("animal" to mapOf("country" to "Brazil"))
         }
-        halleyTemplateOptions {
+        halleyTemplateOptions(tag) {
             mapOf("animal" to mapOf("id" to "1"))
         }
         val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
@@ -401,10 +405,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun retrofitCoroutinesAnnotatedAndCachedParameters() {
-        halleyQueryOptions {
+        val tag = "Test5"
+        halleyQueryOptions(tag) {
             mapOf("animal" to mapOf("country" to "Brazil"))
         }
-        halleyTemplateOptions {
+        halleyTemplateOptions(tag) {
             mapOf("animal" to mapOf("id" to "1"))
         }
         val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
@@ -440,10 +445,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun retrofitRxJavaCachedParameters() {
-        halleyQueryOptions {
+        val tag = "Test4"
+        halleyQueryOptions(tag) {
             mapOf("animal" to mapOf("country" to "Brazil"))
         }
-        halleyTemplateOptions {
+        halleyTemplateOptions(tag) {
             mapOf("animal" to mapOf("id" to "1"))
         }
         webServer.client()?.serviceRx?.profileWithOptionsFromCache()
@@ -480,10 +486,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun retrofitRxJavaAnnotatedAndCachedParameters() {
-        halleyQueryOptions {
+        val tag = "Test2"
+        halleyQueryOptions(tag) {
             mapOf("animal" to mapOf("country" to "Brazil"))
         }
-        halleyTemplateOptions {
+        halleyTemplateOptions(tag) {
             mapOf("animal" to mapOf("id" to "1"))
         }
         webServer.client()?.serviceRx?.profileWithOptionsFromAnnotationAndCache()
