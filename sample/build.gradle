@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         classpath libs.tools.gradle
-        classpath libs.library.plugin
+//        classpath libs.library.plugin
     }
 }
 
@@ -15,7 +15,7 @@ plugins {
     alias libs.plugins.kotlin.android
 }
 
-apply plugin: "com.infinum.halley.plugin"
+//apply plugin: "com.infinum.halley.plugin"
 
 android {
     compileSdkVersion buildConfig.compileSdk
