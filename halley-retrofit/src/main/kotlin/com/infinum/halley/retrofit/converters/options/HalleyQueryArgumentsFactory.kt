@@ -6,22 +6,20 @@ import com.infinum.halley.retrofit.annotations.HalQueryArgument
 import com.infinum.halley.retrofit.annotations.HalQueryArguments
 import com.infinum.halley.retrofit.cache.HalleyOptionsCache
 
-internal class HalleyQueryArgumentsFactory(
-    private val tag: String
-) : OptionFactory<Arguments.Query?, HalQueryArgument, HalleyKeyedMap> {
+internal class HalleyQueryArgumentsFactory : OptionFactory<Arguments.Query?, HalQueryArgument, HalleyKeyedMap> {
 
-    override operator fun invoke(annotations: Array<out Annotation>): Arguments.Query? =
+    override operator fun invoke(tag: String, annotations: Array<out Annotation>): Arguments.Query? =
         (annotations.find { it.annotationClass == HalQueryArguments::class } as? HalQueryArguments)?.let {
             if (it.key.isBlank() && it.arguments.isNotEmpty()) {
                 Arguments.Query(annotationParameters(it.arguments))
             } else if (it.key.isNotBlank() && it.arguments.isEmpty()) {
-                Arguments.Query(cacheParameters(it.key))
+                Arguments.Query(cacheParameters(tag, it.key))
             } else if (it.key.isNotBlank() && it.arguments.isNotEmpty()) {
                 /**
                  * Keys from cache overwrite the keys from annotations
                  */
                 Arguments.Query(
-                    annotationParameters(it.arguments) + cacheParameters(it.key)
+                    annotationParameters(it.arguments) + cacheParameters(tag, it.key)
                 )
             } else {
                 HalleyOptionsCache.get(tag)?.query()
@@ -36,6 +34,6 @@ internal class HalleyQueryArgumentsFactory(
                     .toMap()
             }
 
-    override fun cacheParameters(key: String): HalleyKeyedMap =
+    override fun cacheParameters(tag: String, key: String): HalleyKeyedMap =
         HalleyOptionsCache.get(tag)?.query()?.filterKeys { it == key } ?: mapOf()
 }

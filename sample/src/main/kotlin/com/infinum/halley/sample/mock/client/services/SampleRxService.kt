@@ -15,12 +15,13 @@ import retrofit2.http.GET
 interface SampleRxService {
 
     @GET("/Profile/self")
+    @HalTag("profileRx")
     fun profile(): Single<ProfileResource>
 
     @GET("/Profile/self")
     @HalQueryArguments(key = "animal")
     @HalTemplateArguments(key = "animal")
-    @HalTag("Test4")
+    @HalTag("profileWithOptionsFromCacheRx")
     fun profileWithOptionsFromCache(): Single<ProfileResource>
 
     @GET("/Profile/self")
@@ -49,6 +50,7 @@ interface SampleRxService {
             )
         ]
     )
+    @HalTag("profileWithOptionsFromAnnotationRx")
     fun profileWithOptionsFromAnnotation(): Single<ProfileResource>
 
     @GET("/Profile/self")
@@ -72,7 +74,7 @@ interface SampleRxService {
             )
         ]
     )
-    @HalTag("Test2")
+    @HalTag("profileWithOptionsFromAnnotationAndCacheRx")
     fun profileWithOptionsFromAnnotationAndCache(): Single<ProfileResource>
 }
 // CPD-ON

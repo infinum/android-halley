@@ -282,7 +282,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun retrofitCachedParameters() {
-        val tag = "Test1"
+        val tag = "profileWithOptionsFromCacheRetrofit"
         halleyQueryOptions(tag = tag) {
             mapOf("animal" to mapOf("country" to "Brazil"))
         }
@@ -325,7 +325,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun retrofitAnnotatedAndCachedParameters() {
-        val tag = "Test3"
+        val tag = "profileWithOptionsFromAnnotationAndCacheRetrofit"
         halleyQueryOptions(tag) {
             mapOf("animal" to mapOf("country" to "Brazil"))
         }
@@ -366,7 +366,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun retrofitCoroutinesCachedParameters() {
-        val tag = "Test6"
+        val tag = "profileWithOptionsFromCacheCoroutines"
         halleyQueryOptions(tag) {
             mapOf("animal" to mapOf("country" to "Brazil"))
         }
@@ -405,7 +405,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun retrofitCoroutinesAnnotatedAndCachedParameters() {
-        val tag = "Test5"
+        val tag = "profileWithOptionsFromAnnotationAndCacheCoroutines"
         halleyQueryOptions(tag) {
             mapOf("animal" to mapOf("country" to "Brazil"))
         }
@@ -445,7 +445,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun retrofitRxJavaCachedParameters() {
-        val tag = "Test4"
+        val tag = "profileWithOptionsFromCacheRx"
         halleyQueryOptions(tag) {
             mapOf("animal" to mapOf("country" to "Brazil"))
         }
@@ -486,7 +486,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun retrofitRxJavaAnnotatedAndCachedParameters() {
-        val tag = "Test2"
+        val tag = "profileWithOptionsFromAnnotationAndCacheRx"
         halleyQueryOptions(tag) {
             mapOf("animal" to mapOf("country" to "Brazil"))
         }

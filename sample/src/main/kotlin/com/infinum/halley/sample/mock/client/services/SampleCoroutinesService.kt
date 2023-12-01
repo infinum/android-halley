@@ -14,12 +14,13 @@ import retrofit2.http.GET
 interface SampleCoroutinesService {
 
     @GET("/Profile/self")
+    @HalTag("profileCoroutines")
     suspend fun profile(): ProfileResource
 
     @GET("/Profile/self")
     @HalQueryArguments(key = "animal")
     @HalTemplateArguments(key = "animal")
-    @HalTag("Test6")
+    @HalTag("profileWithOptionsFromCacheCoroutines")
     suspend fun profileWithOptionsFromCache(): ProfileResource
 
     @GET("/Profile/self")
@@ -48,6 +49,7 @@ interface SampleCoroutinesService {
             )
         ]
     )
+    @HalTag("profileWithOptionsFromAnnotationCoroutines")
     suspend fun profileWithOptionsFromAnnotation(): ProfileResource
 
     @GET("/Profile/self")
@@ -71,7 +73,7 @@ interface SampleCoroutinesService {
             )
         ]
     )
-    @HalTag("Test5")
+    @HalTag("profileWithOptionsFromAnnotationAndCacheCoroutines")
     suspend fun profileWithOptionsFromAnnotationAndCache(): ProfileResource
 }
 // CPD-ON

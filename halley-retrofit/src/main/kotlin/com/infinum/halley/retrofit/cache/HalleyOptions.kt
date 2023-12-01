@@ -6,8 +6,8 @@ import com.infinum.halley.core.typealiases.HalleyMap
 import com.infinum.halley.retrofit.converters.options.HalleyOptionsFactory
 
 /*
-This cannot be an object because integrators need to clear the arguments explitcity.
-This needs to be constructed per call site. Convert to class.
+HalleyOptions are constructed per call site and stored in the cache.
+Each call site is identified by a tag.
  */
 internal data class HalleyOptions(
     var common: Arguments.Common? = null,
@@ -23,8 +23,6 @@ internal data class HalleyOptions(
 }
 
 public fun halleyCommonOptions(tag: String, value: () -> HalleyMap) {
-    HalleyOptionsFactory.addTag(tag)
-
     val exists = HalleyOptionsCache.check(tag)
 
     val newOption: HalleyOptions =
@@ -45,8 +43,6 @@ public fun halleyCommonOptions(tag: String, value: () -> HalleyMap) {
 }
 
 public fun halleyQueryOptions(tag: String, value: () -> HalleyKeyedMap) {
-    HalleyOptionsFactory.addTag(tag)
-
     val exists = HalleyOptionsCache.check(tag)
 
     val newOption: HalleyOptions =
@@ -67,8 +63,6 @@ public fun halleyQueryOptions(tag: String, value: () -> HalleyKeyedMap) {
 }
 
 public fun halleyTemplateOptions(tag: String, value: () -> HalleyKeyedMap) {
-    HalleyOptionsFactory.addTag(tag)
-
     val exists = HalleyOptionsCache.check(tag)
 
     val newOption: HalleyOptions =

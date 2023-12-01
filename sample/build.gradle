@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         classpath libs.tools.gradle
-//        classpath libs.library.plugin
+      //  classpath libs.library.plugin
     }
 }
 

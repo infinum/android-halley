@@ -51,7 +51,7 @@ sourceSets {
     main.java.srcDir versionDirectory
 }
 
-task pluginVersion {
+task pluginVersion(dependsOn: "dokkaJavadoc") {
     def outputDir = file(versionDirectory)
 
     inputs.property 'version', releaseConfig.version

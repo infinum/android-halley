@@ -6,9 +6,8 @@ import com.infinum.halley.retrofit.annotations.HalTemplateArgument
 import com.infinum.halley.retrofit.annotations.HalTemplateArguments
 import com.infinum.halley.retrofit.cache.HalleyOptionsCache
 
-internal class HalleyTemplateArgumentsFactory(
-    private val tag: String
-) : OptionFactory<Arguments.Template?, HalTemplateArgument, HalleyKeyedMap> {
+internal class HalleyTemplateArgumentsFactory :
+    OptionFactory<Arguments.Template?, HalTemplateArgument, HalleyKeyedMap> {
 
     /*
         Cases:
@@ -16,18 +15,18 @@ internal class HalleyTemplateArgumentsFactory(
         anotation key - populiraj
 
      */
-    override operator fun invoke(annotations: Array<out Annotation>): Arguments.Template? =
+    override operator fun invoke(tag: String, annotations: Array<out Annotation>): Arguments.Template? =
         (annotations.find { it.annotationClass == HalTemplateArguments::class } as? HalTemplateArguments)?.let {
             if (it.key.isBlank() && it.arguments.isNotEmpty()) {
                 Arguments.Template(annotationParameters(it.arguments))
             } else if (it.key.isNotBlank() && it.arguments.isEmpty()) {
-                Arguments.Template(cacheParameters(it.key))
+                Arguments.Template(cacheParameters(tag, it.key))
             } else if (it.key.isNotBlank() && it.arguments.isNotEmpty()) {
                 /**
                  * Keys from cache overwrite the keys from annotations
                  */
                 Arguments.Template(
-                    annotationParameters(it.arguments) + cacheParameters(it.key)
+                    annotationParameters(it.arguments) + cacheParameters(tag, it.key)
                 )
             } else {
                 HalleyOptionsCache.get(tag)?.template()
@@ -42,6 +41,6 @@ internal class HalleyTemplateArgumentsFactory(
                     .toMap()
             }
 
-    override fun cacheParameters(key: String): HalleyKeyedMap =
+    override fun cacheParameters(tag: String, key: String): HalleyKeyedMap =
         HalleyOptionsCache.get(tag)?.template()?.filterKeys { it == key } ?: mapOf()
 }
