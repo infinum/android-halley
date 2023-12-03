@@ -1,6 +1,7 @@
 apply plugin: "org.jetbrains.dokka"
 
 tasks.named("dokkaJavadoc") {
+    dependsOn(":halley-plugin:pluginVersion")
     outputDirectory.set(file("$buildDir/javadoc"))
 
     dokkaSourceSets {
