@@ -130,11 +130,11 @@
                         android:textAppearance="@style/TextAppearance.Material3.LabelLarge" />
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/retrofit_cached_parameters"
+                        android:id="@+id/retrofit_imperative_parameters"
                         style="@style/Widget.Material3.Button.OutlinedButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Parameters from cache"
+                        android:text="Imperative parameters"
                         android:textAppearance="@style/TextAppearance.Material3.LabelLarge" />
 
                     <com.google.android.material.button.MaterialButton
@@ -142,15 +142,15 @@
                         style="@style/Widget.Material3.Button.OutlinedButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Parameters from annotation"
+                        android:text="Annotated parameters"
                         android:textAppearance="@style/TextAppearance.Material3.LabelLarge" />
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/retrofit_annotated_and_cached_parameters"
+                        android:id="@+id/retrofit_annotated_and_imperative_parameters"
                         style="@style/Widget.Material3.Button.OutlinedButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Parameters from annotation and cache"
+                        android:text="Annotated and imperative parameters"
                         android:textAppearance="@style/TextAppearance.Material3.LabelLarge" />
 
                 </LinearLayout>
@@ -192,11 +192,11 @@
                         android:textAppearance="@style/TextAppearance.Material3.LabelLarge" />
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/retrofit_coroutines_cached_parameters"
+                        android:id="@+id/retrofit_coroutines_imperative_parameters"
                         style="@style/Widget.Material3.Button.OutlinedButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Parameters from cache"
+                        android:text="Imperative parameters"
                         android:textAppearance="@style/TextAppearance.Material3.LabelLarge" />
 
                     <com.google.android.material.button.MaterialButton
@@ -204,15 +204,15 @@
                         style="@style/Widget.Material3.Button.OutlinedButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Parameters from annotation"
+                        android:text="Annotated parameters"
                         android:textAppearance="@style/TextAppearance.Material3.LabelLarge" />
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/retrofit_coroutines_annotated_and_cached_parameters"
+                        android:id="@+id/retrofit_coroutines_annotated_and_imperative_parameters"
                         style="@style/Widget.Material3.Button.OutlinedButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Parameters from annotation and cache"
+                        android:text="Annotated and imperative parameters"
                         android:textAppearance="@style/TextAppearance.Material3.LabelLarge" />
 
                 </LinearLayout>
@@ -254,11 +254,11 @@
                         android:textAppearance="@style/TextAppearance.Material3.LabelLarge" />
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/retrofit_rxjava_cached_parameters"
+                        android:id="@+id/retrofit_rxjava_imperative_parameters"
                         style="@style/Widget.Material3.Button.OutlinedButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Parameters from cache"
+                        android:text="Imperative parameters"
                         android:textAppearance="@style/TextAppearance.Material3.LabelLarge" />
 
                     <com.google.android.material.button.MaterialButton
@@ -266,15 +266,15 @@
                         style="@style/Widget.Material3.Button.OutlinedButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Parameters from annotation"
+                        android:text="Annotated parameters"
                         android:textAppearance="@style/TextAppearance.Material3.LabelLarge" />
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/retrofit_rxjava_annotated_and_cached_parameters"
+                        android:id="@+id/retrofit_rxjava_annotated_and_imperative_parameters"
                         style="@style/Widget.Material3.Button.OutlinedButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Parameters from annotation and cache"
+                        android:text="Annotated and imperative parameters"
                         android:textAppearance="@style/TextAppearance.Material3.LabelLarge" />
 
                 </LinearLayout>

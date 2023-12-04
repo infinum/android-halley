@@ -6,8 +6,8 @@ import com.infinum.halley.core.typealiases.HalleyMap
 import com.infinum.halley.retrofit.converters.options.HalleyOptionsFactory
 
 /*
-HalleyOptions are constructed per call site and stored in the cache.
-Each call site is identified by a tag.
+HalleyOptions are constructed per call site (Retrofit service interface method) and stored in the cache.
+Each Retrofit service interface method is identified by a tag.
  */
 internal data class HalleyOptions(
     var common: Arguments.Common? = null,

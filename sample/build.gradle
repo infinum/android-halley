@@ -70,13 +70,13 @@ android {
 }
 
 dependencies {
-    implementation libs.library.retrofit
-    implementation libs.library.ktor
-//    implementation project(":halley-core")
-//    implementation project(":halley-retrofit")
-//    implementation project(":halley-ktor")
+//    implementation libs.library.retrofit
+//    implementation libs.library.ktor
+    implementation project(":halley-core")
+    implementation project(":halley-retrofit")
+    implementation project(":halley-ktor")
 
-    implementation libs.kotlin.core
+//    implementation libs.kotlin.core
     implementation libs.bundles.androidx
     implementation libs.material
 

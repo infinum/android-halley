@@ -21,8 +21,8 @@ interface SampleRxService {
     @GET("/Profile/self")
     @HalQueryArguments(key = "animal")
     @HalTemplateArguments(key = "animal")
-    @HalTag("profileWithOptionsFromCacheRx")
-    fun profileWithOptionsFromCache(): Single<ProfileResource>
+    @HalTag("profileWithImperativeOptionsRx")
+    fun profileWithImperativeOptions(): Single<ProfileResource>
 
     @GET("/Profile/self")
     @HalCommonArguments(
@@ -50,8 +50,8 @@ interface SampleRxService {
             )
         ]
     )
-    @HalTag("profileWithOptionsFromAnnotationRx")
-    fun profileWithOptionsFromAnnotation(): Single<ProfileResource>
+    @HalTag("profileWithAnnotatedOptionsRx")
+    fun profileWithAnnotatedOptions(): Single<ProfileResource>
 
     @GET("/Profile/self")
     @HalQueryArguments(
@@ -74,7 +74,7 @@ interface SampleRxService {
             )
         ]
     )
-    @HalTag("profileWithOptionsFromAnnotationAndCacheRx")
-    fun profileWithOptionsFromAnnotationAndCache(): Single<ProfileResource>
+    @HalTag("profileWithAnnotatedAndImperativeOptionsRx")
+    fun profileWithAnnotatedAndImperativeOptions(): Single<ProfileResource>
 }
 // CPD-ON

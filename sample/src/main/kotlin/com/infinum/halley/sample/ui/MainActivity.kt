@@ -21,7 +21,6 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.SingleObserver
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import java.util.UUID
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
@@ -61,17 +60,17 @@ class MainActivity : AppCompatActivity() {
                 coreDeserialization.isEnabled = isChecked
                 coreDeserializationWithOptions.isEnabled = isChecked
                 retrofit.isEnabled = isChecked
-                retrofitCachedParameters.isEnabled = isChecked
+                retrofitImperativeParameters.isEnabled = isChecked
                 retrofitAnnotatedParameters.isEnabled = isChecked
-                retrofitAnnotatedAndCachedParameters.isEnabled = isChecked
+                retrofitAnnotatedAndImperativeParameters.isEnabled = isChecked
                 retrofitCoroutines.isEnabled = isChecked
-                retrofitCoroutinesCachedParameters.isEnabled = isChecked
+                retrofitCoroutinesImperativeParameters.isEnabled = isChecked
                 retrofitCoroutinesAnnotatedParameters.isEnabled = isChecked
-                retrofitCoroutinesAnnotatedAndCachedParameters.isEnabled = isChecked
+                retrofitCoroutinesAnnotatedAndImperativeParameters.isEnabled = isChecked
                 retrofitRxjava.isEnabled = isChecked
-                retrofitRxjavaCachedParameters.isEnabled = isChecked
+                retrofitRxjavaImperativeParameters.isEnabled = isChecked
                 retrofitRxjavaAnnotatedParameters.isEnabled = isChecked
-                retrofitRxjavaAnnotatedAndCachedParameters.isEnabled = isChecked
+                retrofitRxjavaAnnotatedAndImperativeParameters.isEnabled = isChecked
                 ktor.isEnabled = isChecked
                 ktorWithParameters.isEnabled = isChecked
             }
@@ -80,24 +79,24 @@ class MainActivity : AppCompatActivity() {
             coreDeserializationWithOptions.setOnClickListener { coreDeserializationWithOptions() }
 
             retrofit.setOnClickListener { retrofit() }
-            retrofitCachedParameters.setOnClickListener { retrofitCachedParameters() }
+            retrofitImperativeParameters.setOnClickListener { retrofitImperativeParameters() }
             retrofitAnnotatedParameters.setOnClickListener { retrofitAnnotatedParameters() }
-            retrofitAnnotatedAndCachedParameters.setOnClickListener { retrofitAnnotatedAndCachedParameters() }
+            retrofitAnnotatedAndImperativeParameters.setOnClickListener { retrofitAnnotatedAndImperativeParameters() }
 
             retrofitCoroutines.setOnClickListener { retrofitCoroutines() }
-            retrofitCoroutinesCachedParameters.setOnClickListener { retrofitCoroutinesCachedParameters() }
+            retrofitCoroutinesImperativeParameters.setOnClickListener { retrofitCoroutinesImperativeParameters() }
             retrofitCoroutinesAnnotatedParameters.setOnClickListener {
                 retrofitCoroutinesAnnotatedParameters()
             }
-            retrofitCoroutinesAnnotatedAndCachedParameters.setOnClickListener {
-                retrofitCoroutinesAnnotatedAndCachedParameters()
+            retrofitCoroutinesAnnotatedAndImperativeParameters.setOnClickListener {
+                retrofitCoroutinesAnnotatedAndImperativeParameters()
             }
 
             retrofitRxjava.setOnClickListener { retrofitRxJava() }
-            retrofitRxjavaCachedParameters.setOnClickListener { retrofitRxJavaCachedParameters() }
+            retrofitRxjavaImperativeParameters.setOnClickListener { retrofitRxJavaImperativeParameters() }
             retrofitRxjavaAnnotatedParameters.setOnClickListener { retrofitRxJavaAnnotatedParameters() }
-            retrofitRxjavaAnnotatedAndCachedParameters.setOnClickListener {
-                retrofitRxJavaAnnotatedAndCachedParameters()
+            retrofitRxjavaAnnotatedAndImperativeParameters.setOnClickListener {
+                retrofitRxJavaAnnotatedAndImperativeParameters()
             }
 
             ktor.setOnClickListener { ktor() }
@@ -281,15 +280,15 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun retrofitCachedParameters() {
-        val tag = "profileWithOptionsFromCacheRetrofit"
+    private fun retrofitImperativeParameters() {
+        val tag = "profileWithImperativeOptionsRetrofit"
         halleyQueryOptions(tag = tag) {
             mapOf("animal" to mapOf("country" to "Brazil"))
         }
         halleyTemplateOptions(tag = tag) {
             mapOf("animal" to mapOf("id" to "1"))
         }
-        webServer.client()?.service?.profileWithOptionsFromCache()
+        webServer.client()?.service?.profileWithImperativeOptions()
             ?.enqueue(object : Callback<ProfileResource> {
                 override fun onResponse(
                     call: Call<ProfileResource>,
@@ -307,7 +306,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun retrofitAnnotatedParameters() {
-        webServer.client()?.service?.profileWithOptionsFromAnnotation()
+        webServer.client()?.service?.profileWithAnnotatedOptions()
             ?.enqueue(object : Callback<ProfileResource> {
                 override fun onResponse(
                     call: Call<ProfileResource>,
@@ -324,15 +323,15 @@ class MainActivity : AppCompatActivity() {
             })
     }
 
-    private fun retrofitAnnotatedAndCachedParameters() {
-        val tag = "profileWithOptionsFromAnnotationAndCacheRetrofit"
+    private fun retrofitAnnotatedAndImperativeParameters() {
+        val tag = "profileWithAnnotatedAndImperativeOptionsRetrofit"
         halleyQueryOptions(tag) {
             mapOf("animal" to mapOf("country" to "Brazil"))
         }
         halleyTemplateOptions(tag) {
             mapOf("animal" to mapOf("id" to "1"))
         }
-        webServer.client()?.service?.profileWithOptionsFromAnnotationAndCache()
+        webServer.client()?.service?.profileWithAnnotatedAndImperativeOptions()
             ?.enqueue(object : Callback<ProfileResource> {
                 override fun onResponse(
                     call: Call<ProfileResource>,
@@ -365,8 +364,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun retrofitCoroutinesCachedParameters() {
-        val tag = "profileWithOptionsFromCacheCoroutines"
+    private fun retrofitCoroutinesImperativeParameters() {
+        val tag = "profileWithImperativeOptionsCoroutines"
         halleyQueryOptions(tag) {
             mapOf("animal" to mapOf("country" to "Brazil"))
         }
@@ -378,7 +377,7 @@ class MainActivity : AppCompatActivity() {
         }
         MainScope().launch {
             val result: ProfileResource? = withContext(Dispatchers.IO + exceptionHandler) {
-                webServer.client()?.serviceCoroutines?.profileWithOptionsFromCache()
+                webServer.client()?.serviceCoroutines?.profileWithImperativeOptions()
             }
             result?.let {
                 showResult(it.prettyPrint())
@@ -394,7 +393,7 @@ class MainActivity : AppCompatActivity() {
         }
         MainScope().launch {
             val result: ProfileResource? = withContext(Dispatchers.IO + exceptionHandler) {
-                webServer.client()?.serviceCoroutines?.profileWithOptionsFromAnnotation()
+                webServer.client()?.serviceCoroutines?.profileWithAnnotatedOptions()
             }
             result?.let {
                 showResult(it.prettyPrint())
@@ -404,8 +403,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun retrofitCoroutinesAnnotatedAndCachedParameters() {
-        val tag = "profileWithOptionsFromAnnotationAndCacheCoroutines"
+    private fun retrofitCoroutinesAnnotatedAndImperativeParameters() {
+        val tag = "profileWithAnnotatedAndImperativeOptionsCoroutines"
         halleyQueryOptions(tag) {
             mapOf("animal" to mapOf("country" to "Brazil"))
         }
@@ -417,7 +416,7 @@ class MainActivity : AppCompatActivity() {
         }
         MainScope().launch {
             val result: ProfileResource? = withContext(Dispatchers.IO + exceptionHandler) {
-                webServer.client()?.serviceCoroutines?.profileWithOptionsFromAnnotationAndCache()
+                webServer.client()?.serviceCoroutines?.profileWithAnnotatedAndImperativeOptions()
             }
             result?.let {
                 showResult(it.prettyPrint())
@@ -444,15 +443,15 @@ class MainActivity : AppCompatActivity() {
             })
     }
 
-    private fun retrofitRxJavaCachedParameters() {
-        val tag = "profileWithOptionsFromCacheRx"
+    private fun retrofitRxJavaImperativeParameters() {
+        val tag = "profileWithImperativeOptionsRx"
         halleyQueryOptions(tag) {
             mapOf("animal" to mapOf("country" to "Brazil"))
         }
         halleyTemplateOptions(tag) {
             mapOf("animal" to mapOf("id" to "1"))
         }
-        webServer.client()?.serviceRx?.profileWithOptionsFromCache()
+        webServer.client()?.serviceRx?.profileWithImperativeOptions()
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribe(object : SingleObserver<ProfileResource> {
@@ -469,7 +468,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun retrofitRxJavaAnnotatedParameters() {
-        webServer.client()?.serviceRx?.profileWithOptionsFromAnnotation()
+        webServer.client()?.serviceRx?.profileWithAnnotatedOptions()
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribe(object : SingleObserver<ProfileResource> {
@@ -485,15 +484,15 @@ class MainActivity : AppCompatActivity() {
             })
     }
 
-    private fun retrofitRxJavaAnnotatedAndCachedParameters() {
-        val tag = "profileWithOptionsFromAnnotationAndCacheRx"
+    private fun retrofitRxJavaAnnotatedAndImperativeParameters() {
+        val tag = "profileWithAnnotatedAndImperativeOptionsRx"
         halleyQueryOptions(tag) {
             mapOf("animal" to mapOf("country" to "Brazil"))
         }
         halleyTemplateOptions(tag) {
             mapOf("animal" to mapOf("id" to "1"))
         }
-        webServer.client()?.serviceRx?.profileWithOptionsFromAnnotationAndCache()
+        webServer.client()?.serviceRx?.profileWithAnnotatedAndImperativeOptions()
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribe(object : SingleObserver<ProfileResource> {

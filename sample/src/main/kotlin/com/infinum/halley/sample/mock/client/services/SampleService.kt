@@ -21,8 +21,8 @@ interface SampleService {
     @GET("/Profile/self")
     @HalQueryArguments(key = "animal")
     @HalTemplateArguments(key = "animal")
-    @HalTag("profileWithOptionsFromCacheRetrofit")
-    fun profileWithOptionsFromCache(): Call<ProfileResource>
+    @HalTag("profileWithImperativeOptionsRetrofit")
+    fun profileWithImperativeOptions(): Call<ProfileResource>
 
     @GET("/Profile/self")
     @HalCommonArguments(
@@ -50,8 +50,8 @@ interface SampleService {
             )
         ]
     )
-    @HalTag("profileWithOptionsFromAnnotationRetrofit")
-    fun profileWithOptionsFromAnnotation(): Call<ProfileResource>
+    @HalTag("profileWithAnnotatedOptionsRetrofit")
+    fun profileWithAnnotatedOptions(): Call<ProfileResource>
 
     @GET("/Profile/self")
     @HalQueryArguments(
@@ -74,7 +74,7 @@ interface SampleService {
             )
         ]
     )
-    @HalTag("profileWithOptionsFromAnnotationAndCacheRetrofit")
-    fun profileWithOptionsFromAnnotationAndCache(): Call<ProfileResource>
+    @HalTag("profileWithAnnotatedAndImperativeOptionsRetrofit")
+    fun profileWithAnnotatedAndImperativeOptions(): Call<ProfileResource>
 }
 // CPD-ON

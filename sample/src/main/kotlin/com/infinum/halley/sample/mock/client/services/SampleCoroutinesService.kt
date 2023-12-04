@@ -20,8 +20,8 @@ interface SampleCoroutinesService {
     @GET("/Profile/self")
     @HalQueryArguments(key = "animal")
     @HalTemplateArguments(key = "animal")
-    @HalTag("profileWithOptionsFromCacheCoroutines")
-    suspend fun profileWithOptionsFromCache(): ProfileResource
+    @HalTag("profileWithImperativeOptionsCoroutines")
+    suspend fun profileWithImperativeOptions(): ProfileResource
 
     @GET("/Profile/self")
     @HalCommonArguments(
@@ -49,8 +49,8 @@ interface SampleCoroutinesService {
             )
         ]
     )
-    @HalTag("profileWithOptionsFromAnnotationCoroutines")
-    suspend fun profileWithOptionsFromAnnotation(): ProfileResource
+    @HalTag("profileWithAnnotatedOptionsCoroutines")
+    suspend fun profileWithAnnotatedOptions(): ProfileResource
 
     @GET("/Profile/self")
     @HalQueryArguments(
@@ -73,7 +73,7 @@ interface SampleCoroutinesService {
             )
         ]
     )
-    @HalTag("profileWithOptionsFromAnnotationAndCacheCoroutines")
-    suspend fun profileWithOptionsFromAnnotationAndCache(): ProfileResource
+    @HalTag("profileWithAnnotatedAndImperativeOptionsCoroutines")
+    suspend fun profileWithAnnotatedAndImperativeOptions(): ProfileResource
 }
 // CPD-ON
