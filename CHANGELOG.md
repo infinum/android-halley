@@ -1,6 +1,12 @@
 Changelog
 =========
 
+## Version 0.0.5
+
+_TBD_
+
+* Tag options per Retrofit service interface method.
+
 ## Version 0.0.4
 
 _2023-03-31_

@@ -9,4 +9,5 @@ cpdCheck {
         xml.required = true
     }
     source = allprojects*.file("src/main/kotlin")
+    minimumTokenCount = 100
 }

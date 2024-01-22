@@ -47,7 +47,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "com.infinum.halley:halley-plugin:0.0.4"
+        classpath "com.infinum.halley:halley-plugin:0.0.5"
     }
 }
 ```
@@ -58,7 +58,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.infinum.halley:halley-plugin:0.0.4")
+        classpath("com.infinum.halley:halley-plugin:0.0.5")
     }
 }
 ```
@@ -85,13 +85,13 @@ Now you can sync your project and core features like serialization and deseriali
 **Groovy**
 
 ```groovy
-implementation "com.infinum.halley:halley-core:0.0.4"
+implementation "com.infinum.halley:halley-core:0.0.5"
 ```
 
 **KotlinDSL**
 
 ```kotlin
-implementation("com.infinum.halley:halley-core:0.0.4")
+implementation("com.infinum.halley:halley-core:0.0.5")
 ```
 
 ### Retrofit
@@ -99,13 +99,13 @@ implementation("com.infinum.halley:halley-core:0.0.4")
 **Groovy**
 
 ```groovy
-implementation "com.infinum.halley:halley-retrofit:0.0.4"
+implementation "com.infinum.halley:halley-retrofit:0.0.5"
 ```
 
 **KotlinDSL**
 
 ```kotlin
-implementation("com.infinum.halley:halley-retrofit:0.0.4")
+implementation("com.infinum.halley:halley-retrofit:0.0.5")
 ```
 
 ### Ktor
@@ -113,13 +113,13 @@ implementation("com.infinum.halley:halley-retrofit:0.0.4")
 **Groovy**
 
 ```groovy
-implementation "com.infinum.halley:halley-ktor:0.0.4"
+implementation "com.infinum.halley:halley-ktor:0.0.5"
 ```
 
 **KotlinDSL**
 
 ```kotlin
-implementation("com.infinum.halley:halley-ktor:0.0.4")
+implementation("com.infinum.halley:halley-ktor:0.0.5")
 ```
 
 ### Retrofit and Ktor together
@@ -127,15 +127,15 @@ implementation("com.infinum.halley:halley-ktor:0.0.4")
 **Groovy**
 
 ```groovy
-implementation "com.infinum.halley:halley-retrofit:0.0.4"
-implementation "com.infinum.halley:halley-ktor:0.0.4"
+implementation "com.infinum.halley:halley-retrofit:0.0.5"
+implementation "com.infinum.halley:halley-ktor:0.0.5"
 ```
 
 **KotlinDSL**
 
 ```kotlin
-implementation("com.infinum.halley:halley-retrofit:0.0.4")
-implementation("com.infinum.halley:halley-ktor:0.0.4")
+implementation("com.infinum.halley:halley-retrofit:0.0.5")
+implementation("com.infinum.halley:halley-ktor:0.0.5")
 ```
 
 ## Usage
@@ -265,6 +265,8 @@ val actual: HalModel = halley.decodeFromString(
 )
 ```
 ### Retrofit
+When using _Halley_ with Retrofit, it is important to ensure that each Retrofit service interface method is annotated with `@HalTag`. 
+The value (any `String` you've chosen) set for the tag will later be used to match the method with the corresponding option arguments.
 #### Annotated option arguments in Retrofit service interface
 ```kotlin
 @GET("/Profile/self")
@@ -293,19 +295,21 @@ val actual: HalModel = halley.decodeFromString(
         )
     ]
 )
-fun profileWithOptionsFromAnnotation(): Call<ProfileResource>
+@HalTag("profileWithAnnotatedOptions")
+fun profileWithAnnotatedOptions(): Call<ProfileResource>
 ```
 #### Imperative option arguments before Retrofit method call
+When setting options imperatively, it is important to ensure that you have used the same **tag** value as the one set in the Retrofit service interface method you intend to use the options for.
 ```kotlin
 private fun fetchProfile() {
     // Halley for Retrofit provides convenience halleyQueryOptions functions
-    halleyQueryOptions {
+    halleyQueryOptions(tag = "profileWithImperativeOptions") {
         mapOf("animal" to mapOf("country" to "Brazil"))
     }
-    halleyTemplateOptions {
+    halleyTemplateOptions(tag = "profileWithImperativeOptions") {
         mapOf("animal" to mapOf("id" to "1"))
     }
-    webServer.client()?.service?.profileWithOptionsFromCache()
+    webServer.client()?.service?.profileWithImperativeOptions()
         ?.enqueue(object : Callback<ProfileResource> {
             override fun onResponse(
                 call: Call<ProfileResource>,

@@ -5,6 +5,7 @@ import com.infinum.halley.retrofit.annotations.HalArgumentEntry
 import com.infinum.halley.retrofit.annotations.HalCommonArguments
 import com.infinum.halley.retrofit.annotations.HalQueryArgument
 import com.infinum.halley.retrofit.annotations.HalQueryArguments
+import com.infinum.halley.retrofit.annotations.HalTag
 import com.infinum.halley.retrofit.annotations.HalTemplateArgument
 import com.infinum.halley.retrofit.annotations.HalTemplateArguments
 import com.infinum.halley.sample.data.models.deserialization.ProfileResource
@@ -14,12 +15,14 @@ import retrofit2.http.GET
 interface SampleRxService {
 
     @GET("/Profile/self")
+    @HalTag("profileRx")
     fun profile(): Single<ProfileResource>
 
     @GET("/Profile/self")
     @HalQueryArguments(key = "animal")
     @HalTemplateArguments(key = "animal")
-    fun profileWithOptionsFromCache(): Single<ProfileResource>
+    @HalTag("profileWithImperativeOptionsRx")
+    fun profileWithImperativeOptions(): Single<ProfileResource>
 
     @GET("/Profile/self")
     @HalCommonArguments(
@@ -47,7 +50,8 @@ interface SampleRxService {
             )
         ]
     )
-    fun profileWithOptionsFromAnnotation(): Single<ProfileResource>
+    @HalTag("profileWithAnnotatedOptionsRx")
+    fun profileWithAnnotatedOptions(): Single<ProfileResource>
 
     @GET("/Profile/self")
     @HalQueryArguments(
@@ -70,6 +74,7 @@ interface SampleRxService {
             )
         ]
     )
-    fun profileWithOptionsFromAnnotationAndCache(): Single<ProfileResource>
+    @HalTag("profileWithAnnotatedAndImperativeOptionsRx")
+    fun profileWithAnnotatedAndImperativeOptions(): Single<ProfileResource>
 }
 // CPD-ON

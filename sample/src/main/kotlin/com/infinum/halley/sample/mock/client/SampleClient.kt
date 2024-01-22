@@ -6,6 +6,7 @@ import com.infinum.halley.retrofit.extensions.asHalleyConverterFactory
 import com.infinum.halley.sample.mock.client.services.SampleCoroutinesService
 import com.infinum.halley.sample.mock.client.services.SampleRxService
 import com.infinum.halley.sample.mock.client.services.SampleService
+import java.util.UUID
 import kotlinx.serialization.json.Json
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
@@ -19,7 +20,7 @@ class SampleClient(
 ) {
 
     init {
-        halleyCommonOptions {
+        halleyCommonOptions(tag = UUID.randomUUID().toString()) {
             mapOf(
                 "device" to "Nokia",
                 "rooted" to "false"

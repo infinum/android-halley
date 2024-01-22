@@ -5,6 +5,7 @@ import com.infinum.halley.retrofit.annotations.HalArgumentEntry
 import com.infinum.halley.retrofit.annotations.HalCommonArguments
 import com.infinum.halley.retrofit.annotations.HalQueryArgument
 import com.infinum.halley.retrofit.annotations.HalQueryArguments
+import com.infinum.halley.retrofit.annotations.HalTag
 import com.infinum.halley.retrofit.annotations.HalTemplateArgument
 import com.infinum.halley.retrofit.annotations.HalTemplateArguments
 import com.infinum.halley.sample.data.models.deserialization.ProfileResource
@@ -14,12 +15,14 @@ import retrofit2.http.GET
 interface SampleService {
 
     @GET("/Profile/self")
+    @HalTag("profileRetrofit")
     fun profile(): Call<ProfileResource>
 
     @GET("/Profile/self")
     @HalQueryArguments(key = "animal")
     @HalTemplateArguments(key = "animal")
-    fun profileWithOptionsFromCache(): Call<ProfileResource>
+    @HalTag("profileWithImperativeOptionsRetrofit")
+    fun profileWithImperativeOptions(): Call<ProfileResource>
 
     @GET("/Profile/self")
     @HalCommonArguments(
@@ -47,7 +50,8 @@ interface SampleService {
             )
         ]
     )
-    fun profileWithOptionsFromAnnotation(): Call<ProfileResource>
+    @HalTag("profileWithAnnotatedOptionsRetrofit")
+    fun profileWithAnnotatedOptions(): Call<ProfileResource>
 
     @GET("/Profile/self")
     @HalQueryArguments(
@@ -70,6 +74,7 @@ interface SampleService {
             )
         ]
     )
-    fun profileWithOptionsFromAnnotationAndCache(): Call<ProfileResource>
+    @HalTag("profileWithAnnotatedAndImperativeOptionsRetrofit")
+    fun profileWithAnnotatedAndImperativeOptions(): Call<ProfileResource>
 }
 // CPD-ON

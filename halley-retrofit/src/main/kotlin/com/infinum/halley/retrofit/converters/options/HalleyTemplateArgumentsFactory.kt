@@ -4,7 +4,7 @@ import com.infinum.halley.core.serializers.link.models.templated.params.Argument
 import com.infinum.halley.core.typealiases.HalleyKeyedMap
 import com.infinum.halley.retrofit.annotations.HalTemplateArgument
 import com.infinum.halley.retrofit.annotations.HalTemplateArguments
-import com.infinum.halley.retrofit.cache.HalleyOptions
+import com.infinum.halley.retrofit.cache.HalleyOptionsCache
 
 internal class HalleyTemplateArgumentsFactory :
     OptionFactory<Arguments.Template?, HalTemplateArgument, HalleyKeyedMap> {
@@ -15,23 +15,23 @@ internal class HalleyTemplateArgumentsFactory :
         anotation key - populiraj
 
      */
-    override operator fun invoke(annotations: Array<out Annotation>): Arguments.Template? =
+    override operator fun invoke(tag: String, annotations: Array<out Annotation>): Arguments.Template? =
         (annotations.find { it.annotationClass == HalTemplateArguments::class } as? HalTemplateArguments)?.let {
             if (it.key.isBlank() && it.arguments.isNotEmpty()) {
                 Arguments.Template(annotationParameters(it.arguments))
             } else if (it.key.isNotBlank() && it.arguments.isEmpty()) {
-                Arguments.Template(cacheParameters(it.key))
+                Arguments.Template(cacheParameters(tag, it.key))
             } else if (it.key.isNotBlank() && it.arguments.isNotEmpty()) {
                 /**
                  * Keys from cache overwrite the keys from annotations
                  */
                 Arguments.Template(
-                    annotationParameters(it.arguments) + cacheParameters(it.key)
+                    annotationParameters(it.arguments) + cacheParameters(tag, it.key)
                 )
             } else {
-                HalleyOptions.template()
+                HalleyOptionsCache.get(tag)?.template()
             }
-        } ?: HalleyOptions.template()
+        } ?: HalleyOptionsCache.get(tag)?.template()
 
     override fun annotationParameters(parameters: Array<HalTemplateArgument>): HalleyKeyedMap =
         parameters
@@ -41,6 +41,6 @@ internal class HalleyTemplateArgumentsFactory :
                     .toMap()
             }
 
-    override fun cacheParameters(key: String): HalleyKeyedMap =
-        HalleyOptions.template()?.filterKeys { it == key } ?: mapOf()
+    override fun cacheParameters(tag: String, key: String): HalleyKeyedMap =
+        HalleyOptionsCache.get(tag)?.template()?.filterKeys { it == key } ?: mapOf()
 }
