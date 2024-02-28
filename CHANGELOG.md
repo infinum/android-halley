@@ -3,7 +3,7 @@ Changelog
 
 ## Version 0.0.5
 
-_TBD_
+_2024-02-27_
 
 * Tag options per Retrofit service interface method.
 
