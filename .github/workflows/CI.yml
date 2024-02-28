@@ -33,7 +33,7 @@ jobs:
           restore-keys: |
             gradle-caches-${{ runner.os }}-
       - name: Lint
-        run: ./gradlew lintAll
+        run: ./gradlew lint
       - name: Stop Gradle
         run: ./gradlew --stop
 
