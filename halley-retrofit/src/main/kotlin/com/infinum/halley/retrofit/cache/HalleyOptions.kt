@@ -3,7 +3,6 @@ package com.infinum.halley.retrofit.cache
 import com.infinum.halley.core.serializers.link.models.templated.params.Arguments
 import com.infinum.halley.core.typealiases.HalleyKeyedMap
 import com.infinum.halley.core.typealiases.HalleyMap
-import com.infinum.halley.retrofit.converters.options.HalleyOptionsFactory
 
 /*
 HalleyOptions are constructed per call site (Retrofit service interface method) and stored in the cache.

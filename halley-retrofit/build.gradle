@@ -29,8 +29,8 @@ dependencies {
     implementation libs.kotlin.core
     implementation libs.kotlinx.serialization
 
-    api libs.library.core
-//    api project(":halley-core")
+    // api libs.library.core
+    api project(":halley-core")
     implementation libs.okhttp
     implementation libs.retrofit
 }
