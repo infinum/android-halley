@@ -10,8 +10,10 @@ import com.infinum.halley.core.serializers.hal.models.HalResource
 import com.infinum.halley.core.serializers.shared.delegates.DeserializerDelegate
 import kotlin.reflect.KClass
 import kotlin.reflect.KProperty1
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.builtins.ArraySerializer
 import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.serialization.builtins.MapSerializer
 import kotlinx.serialization.builtins.SetSerializer
 import kotlinx.serialization.json.JsonDecoder
 import kotlinx.serialization.json.JsonNull
@@ -53,6 +55,7 @@ internal class PrimitiveDeserializerDelegate<T : HalResource>(
                 result,
                 jsonObject[name]?.jsonPrimitive?.contentOrNull
             )
+            Map::class -> decodeMap()
             else -> if (property.isCollection()) {
                 decodeCollection()
             } else {
@@ -104,6 +107,21 @@ internal class PrimitiveDeserializerDelegate<T : HalResource>(
             } ?: JsonNull
         )
 
+        property.setField(result, value)
+    }
+
+    private fun decodeMap() {
+        val mapType = property.returnType
+        val keyType = mapType.arguments[0].type ?: throw SerializationException("Cannot determine map key type")
+        val valueType = mapType.arguments[1].type ?: throw SerializationException("Cannot determine map value type")
+
+        val value = decoder.json.decodeFromJsonElement(
+            MapSerializer(
+                decoder.serializersModule.serializer(keyType),
+                decoder.serializersModule.serializer(valueType)
+            ),
+            jsonObject[name]?.jsonObject ?: JsonObject(emptyMap())
+        )
         property.setField(result, value)
     }
 }
