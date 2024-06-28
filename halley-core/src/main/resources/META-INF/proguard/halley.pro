@@ -44,3 +44,5 @@
 -dontwarn org.openjsse.**
 -dontwarn org.joda.**
 -dontwarn org.slf4j.**
+
+-keep class * extends com.infinum.halley.core.serializers.hal.models.HalResource { *; }

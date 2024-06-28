@@ -31,7 +31,13 @@ data class ProfileResource(
     val user: UserResource? = null,
 
     @Transient
-    val age: Int = 40
+    val age: Int = 40,
+
+    @SerialName(value = "favouriteMeals")
+    val favouriteMeals: Map<String, String>? = null,
+
+    @SerialName(value = "categorizedAnimals")
+    val categorizedAnimals: Map<String, List<AnimalResource>>? = null
 
 ) : HalResource
 // CPD-ON
