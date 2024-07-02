@@ -1,6 +1,13 @@
 Changelog
 =========
 
+## Version 0.0.6
+
+_2024-06-28_
+
+* Add support for decoding properties of type `Map`.
+* Add a new proguard rule to keep classes extending from `HalResource`.
+
 ## Version 0.0.5
 
 _2024-02-27_
@@ -35,4 +42,3 @@ _2023-01-12_
 _2022-08-16_
 
 * Initial public release.
-  
