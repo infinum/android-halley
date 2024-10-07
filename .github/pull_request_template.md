@@ -1,9 +1,9 @@
 ## Summary
 
-<!--
+<!-- 
     Provide an overview of what this pull request aims to address or achieve.
 
-    Link any relevant issues that this pull request addresses or resolves, using the format "Fixes #issue_number".
+    Link any relevant issues that this pull request addresses or resolves, using the format "Fixes #issue_number". 
 -->
 
 ## Changes
@@ -22,10 +22,10 @@
 
 ### Description
 
-<!--
-    Describe the specific changes made in this pull request, including any technical details or architectural decisions.
+<!-- 
+    Describe the specific changes made in this pull request, including any technical details or architectural decisions. 
 
-    If applicable, include additional information like screenshots, logs or other data that demonstrate the changes.
+    If applicable, include additional information like screenshots, logs or other data that demonstrate the changes. 
 -->
 
 ## Checklist
@@ -37,6 +37,6 @@
 
 ## Additional notes
 
-<!--
-    Add any additional comments, instructions, or insights about this pull request.
+<!-- 
+    Add any additional comments, instructions, or insights about this pull request. 
 -->
