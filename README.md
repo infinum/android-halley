@@ -1,4 +1,4 @@
-![Download](https://img.shields.io/maven-central/v/com.infinum.halley/halley-core) ![Validate Gradle Wrapper](https://github.com/infinum/android-halley/actions/workflows/gradle-wrapper-validation.yml/badge.svg) ![CI](https://github.com/infinum/android-sentinel/actions/workflows/CI.yml/badge.svg)
+![Download](https://img.shields.io/maven-central/v/com.infinum.halley/halley-core) ![CI](https://github.com/infinum/android-halley/actions/workflows/CI.yml/badge.svg)
 
 ### <img align="left" src="logo.svg" width="48">
 
