@@ -10,10 +10,23 @@ known just as HAL.
 Besides manual call sites that core package provides, Retrofit and Ktor integrations are included.  
 _Halley_ is built on top of [KotlinX Serialization](https://github.com/Kotlin/kotlinx.serialization).
 
+## Table of contents
+
+* [Getting started](#getting-started)
+* [Usage](#usage)
+* [Models](#models)
+* [Comments and limitations](#comments-and-limitations)
+* [Deserialization options](#deserialization-options)
+* [Requirements](#requirements)
+* [Contributing](#contributing)
+* [License](#license)
+* [Credits](#credits)
+
 ## Getting started
 
 There are several ways to include _Halley_ in your project, depending on your use case.  
-In every case, you should include and apply _Halley_ plugin first. Plugin will include core dependencies and apply KotlinX Serialization in your project.  
+In every case, you should include and apply _Halley_ plugin first. Plugin will include core dependencies and apply KotlinX Serialization in
+your project.  
 You have to add buildscript dependencies in your project level `build.gradle` or `build.gradle.kts`:
 
 ### Core - with Halley plugin
@@ -41,6 +54,7 @@ buildscript {
 To include plugin to your project, you have to add buildscript dependencies in your project level `build.gradle` or `build.gradle.kts`:
 
 **Groovy**
+
 ```gradle
 buildscript {
     repositories {
@@ -51,7 +65,9 @@ buildscript {
     }
 }
 ```
+
 **KotlinDSL**
+
 ```kotlin
 buildscript {
     repositories {
@@ -66,14 +82,17 @@ buildscript {
 Then apply the plugin in your app `build.gradle` or `build.gradle.kts` :
 
 **Groovy**
+
 ```gradle
 apply plugin: "com.infinum.halley.plugin"
 ```
+
 **KotlinDSL**
+
 ```kotlin
 plugins {
     ...
-    
+
     id("com.infinum.halley.plugin")
 }
 ```
@@ -141,7 +160,9 @@ implementation("com.infinum.halley:halley-ktor:0.0.6")
 ## Usage
 
 ### Core
+
 **Serialization**
+
 ```kotlin
 // create or reuse default Halley instance
 val halley = Halley()
@@ -150,7 +171,9 @@ val result: String = halley.encodeToString(
     value = ...
 )
 ```
+
 **Deserialization**
+
 ```kotlin
 // create or reuse default Halley instance 
 val halley = Halley()
@@ -174,8 +197,11 @@ Retrofit.Builder()
     .baseUrl(baseUrl)
     .build()
 ```
+
 ### Ktor
+
 **Deserialization**
+
 ```kotlin
 HttpClient(CIO) {
     defaultRequest {
@@ -194,8 +220,11 @@ HttpClient(CIO) {
     }
 }
 ```
+
 # Models
+
 A typical HAL model class prepared for _Halley_ consists of several parts.
+
 ```kotlin
 @Serializable
 data class Model(
@@ -214,34 +243,50 @@ data class Model(
 
 ) : HalResource
 ```
+
 Going from top to bottom, these classes must obey the following list of rules:
+
 * A class must be annotated by KotlinX Serialization `@Serializable`.
-* A class must implement an empty `HalResource` interface. 
-* Classes without `HalResource` interface will be treated like a simple plain JSON. 
+* A class must implement an empty `HalResource` interface.
+* Classes without `HalResource` interface will be treated like a simple plain JSON.
 * It's recommended to annotate each class property with `@SerialName(value = "...")` to avoid possible ProGuard issues.
 * HAL _link_ properties must be annotated with `@HalLink` and be `Link` type provided by _Halley_ library.
 * HAL _embedded_ properties must be annotated with `@HalEmbedded`
 * Objects under `@HalEmbedded` annotated property must also implement `HalResource` interface.
 
 ## Comments and limitations
-A few notes about `HalResource` models:
-* Kotlin `object` classes are not supported in _Halley_.
-* Multiple `Link` classes in one property under one `@HalLink` annotation are supported by using `List`, `Iterable`, `Set`, `Collection` interfaces and `Array` class only.
-* Multiple embedded classes in one property under one `@HalEmbedded` annotation are supported by using `List`, `Iterable`, `Set`, `Collection` interfaces and `Array` class only.
-* If a model class has `@HalEmbedded` annotated property but server response provides partial or no object in JSON, then _link_ from __links_ part of response JSON will be used to request that resource and populate the parent model before returning the complete parent model.
 
-Please refer to more complex variations of HAL model classes in [sample](https://github.com/infinum/android-halley/tree/main/sample/src/main/kotlin/com/infinum/halley/sample/data/models) module or [test source set in core](https://github.com/infinum/android-halley/tree/main/halley-core/src/test/kotlin/com/infinum/halley/core/shared/models) module of this repository.
+A few notes about `HalResource` models:
+
+* Kotlin `object` classes are not supported in _Halley_.
+* Multiple `Link` classes in one property under one `@HalLink` annotation are supported by using `List`, `Iterable`, `Set`, `Collection`
+  interfaces and `Array` class only.
+* Multiple embedded classes in one property under one `@HalEmbedded` annotation are supported by using `List`, `Iterable`, `Set`,
+  `Collection` interfaces and `Array` class only.
+* If a model class has `@HalEmbedded` annotated property but server response provides partial or no object in JSON, then _link_ from _
+  _links_ part of response JSON will be used to request that resource and populate the parent model before returning the complete parent
+  model.
+
+Please refer to more complex variations of HAL model classes
+in [sample](https://github.com/infinum/android-halley/tree/main/sample/src/main/kotlin/com/infinum/halley/sample/data/models) module
+or [test source set in core](https://github.com/infinum/android-halley/tree/main/halley-core/src/test/kotlin/com/infinum/halley/core/shared/models)
+module of this repository.
 
 ## Deserialization options
+
 _Halley_ has 2 ways of providing 3 different option arguments.  
-Developers can use _imperative_ and _annotated_ way, or both at the same time, to define option arguments depending on integration use case.  
+Developers can use _imperative_ and _annotated_ way, or both at the same time, to define option arguments depending on integration use
+case.  
 If both ways are used, imperative way will override any existing and same keys in the annotations.  
 Option arguments are defined as _common_, _query_ and _template_.
+
 * common - will be appended as HTTP query parameters on **every** link executed by _Halley_
 * query - will be appended as HTTP query parameters on **every link with the matching key** executed by _Halley_
-* template - will be replaced on **every link with the matching key** executed by _Halley_ according to [RFC 6570](https://datatracker.ietf.org/doc/html/rfc6570) standard
+* template - will be replaced on **every link with the matching key** executed by _Halley_ according
+  to [RFC 6570](https://datatracker.ietf.org/doc/html/rfc6570) standard
 
 ### Core
+
 ```kotlin
 // create or reuse default Halley instance 
 val halley = Halley()
@@ -264,10 +309,14 @@ val actual: HalModel = halley.decodeFromString(
     )
 )
 ```
+
 ### Retrofit
-When using _Halley_ with Retrofit, it is important to ensure that each Retrofit service interface method is annotated with `@HalTag`. 
+
+When using _Halley_ with Retrofit, it is important to ensure that each Retrofit service interface method is annotated with `@HalTag`.
 The value (any `String` you've chosen) set for the tag will later be used to match the method with the corresponding option arguments.
+
 #### Annotated option arguments in Retrofit service interface
+
 ```kotlin
 @GET("/Profile/self")
 @HalCommonArguments(
@@ -298,8 +347,12 @@ The value (any `String` you've chosen) set for the tag will later be used to mat
 @HalTag("profileWithAnnotatedOptions")
 fun profileWithAnnotatedOptions(): Call<ProfileResource>
 ```
+
 #### Imperative option arguments before Retrofit method call
-When setting options imperatively, it is important to ensure that you have used the same **tag** value as the one set in the Retrofit service interface method you intend to use the options for.
+
+When setting options imperatively, it is important to ensure that you have used the same **tag** value as the one set in the Retrofit
+service interface method you intend to use the options for.
+
 ```kotlin
 private fun fetchProfile() {
     // Halley for Retrofit provides convenience halleyQueryOptions functions
@@ -326,9 +379,14 @@ private fun fetchProfile() {
         })
 }
 ```
-_Halley_ Retrofit converter factory works as a standalone factory or together with Kotlin Coroutines, RxJava1, RxJava2 and RxJava3 factories.  
-Various use cases can be examined in the [sample implementation](https://github.com/infinum/android-halley/blob/main/sample/src/main/kotlin/com/infinum/halley/sample/ui/MainActivity.kt).
+
+_Halley_ Retrofit converter factory works as a standalone factory or together with Kotlin Coroutines, RxJava1, RxJava2 and RxJava3
+factories.  
+Various use cases can be examined in
+the [sample implementation](https://github.com/infinum/android-halley/blob/main/sample/src/main/kotlin/com/infinum/halley/sample/ui/MainActivity.kt).
+
 ### Ktor
+
 ```kotlin
 HttpClient(CIO) {
     defaultRequest {
@@ -370,9 +428,24 @@ suspend fun profileWithOptions(): ProfileResource =
         )
     }.body()
 ```
-An example of a Ktor client can be examined [here](https://github.com/infinum/android-halley/blob/main/sample/src/main/kotlin/com/infinum/halley/sample/mock/client/SampleKtor.kt).
+
+An example of a Ktor client can be
+examined [here](https://github.com/infinum/android-halley/blob/main/sample/src/main/kotlin/com/infinum/halley/sample/mock/client/SampleKtor.kt).
+
 ## Requirements
+
 _Halley_ is written entirely in Kotlin, for Kotlin models and projects.
+
+## Contributing
+
+We believe that the community can help us improve and build better a product.
+Please refer to our [contributing guide](CONTRIBUTING.md) to learn about the types of contributions we accept and the process for submitting
+them.
+
+To ensure that our community remains respectful and professional, we defined a [code of conduct](CODE_OF_CONDUCT.md) that we expect all
+contributors to follow.
+
+We appreciate your interest and look forward to your contributions.
 
 ## License
 
