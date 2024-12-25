@@ -199,14 +199,14 @@ Retrofit.Builder()
 ```
 
 > [!TIP]
-> Halley offers a `Call.Factory` extension function to create a `Call.Factory` instance which that executes the callback in a new thread.
+> Halley offers a `Call.Factory.asyncCallFactory` extension function to create a `Call.Factory` instance which that executes the callback in a new thread.
 > 
 > By default, OkHttp executes the callback code on the dispatcher thread, meaning that enqueuing another set of calls in the callback can
-> exhaust the dispatcher (default maximum is 5). To free the dispatcher thread as soon as possible, use this factory to switch the callback
-> execution into another thread from a non-fixed-sized thread pool. By doing so, that thread (instead of the dispatcher thread) is blocked
+> exhaust the dispatcher (default maximum is 5). To free the dispatcher thread as soon as possible, use this factory to *switch the callback
+> execution into another thread from a non-fixed-sized thread pool*. By doing so, that thread (instead of the dispatcher thread) is blocked
 > while waiting for relationship calls to complete.
 > 
-> Example of creating such `Call.Factory` instance:
+> _Example of creating such `Call.Factory` instance:_
 > ```kotlin
 > val callFactory = OkHttpClient.Builder().build().asyncCallFactory()
 > ```
