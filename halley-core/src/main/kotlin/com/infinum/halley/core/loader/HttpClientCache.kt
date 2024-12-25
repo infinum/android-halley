@@ -1,14 +1,16 @@
 package com.infinum.halley.core.loader
 
+import com.infinum.halley.core.extensions.asyncCallFactory
+import okhttp3.Call
 import okhttp3.OkHttpClient
 
 internal object HttpClientCache {
 
-    private var httpClient: OkHttpClient = OkHttpClient.Builder().build()
+    private var callFactory: Call.Factory = OkHttpClient.Builder().build().asyncCallFactory()
 
-    fun save(client: OkHttpClient) {
-        httpClient = client
+    fun save(callFactory: Call.Factory) {
+        this.callFactory = callFactory
     }
 
-    fun load(): OkHttpClient = httpClient
+    fun load(): Call.Factory = callFactory
 }

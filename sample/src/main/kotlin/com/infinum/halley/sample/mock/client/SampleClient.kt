@@ -8,15 +8,15 @@ import com.infinum.halley.sample.mock.client.services.SampleRxService
 import com.infinum.halley.sample.mock.client.services.SampleService
 import java.util.UUID
 import kotlinx.serialization.json.Json
+import okhttp3.Call
 import okhttp3.HttpUrl
-import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class SampleClient(
     private val baseUrl: HttpUrl,
-    private val httpClient: OkHttpClient
+    private val callFactory: Call.Factory,
 ) {
 
     init {
@@ -46,11 +46,11 @@ class SampleClient(
                     prettyPrint = true,
                     prettyPrintIndent = "  "
                 ),
-                httpClient = httpClient
+                callFactory = callFactory,
             )
         )
         .addConverterFactory(ScalarsConverterFactory.create())
-        .client(httpClient)
+        .callFactory(callFactory)
         .baseUrl(baseUrl)
         .build()
 }

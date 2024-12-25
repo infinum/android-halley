@@ -4,6 +4,7 @@ package com.infinum.halley.sample.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.infinum.halley.core.Halley
+import com.infinum.halley.core.extensions.asyncCallFactory
 import com.infinum.halley.core.serializers.link.models.Link
 import com.infinum.halley.core.serializers.link.models.templated.params.Arguments
 import com.infinum.halley.databinding.ActivityMainBinding
@@ -117,14 +118,14 @@ class MainActivity : AppCompatActivity() {
                 prettyPrint = true,
                 prettyPrintIndent = "  "
             ),
-            httpClient = OkHttpClient.Builder()
+            callFactory = OkHttpClient.Builder()
                 .addInterceptor(
                     HttpLoggingInterceptor()
                         .apply {
                             level = HttpLoggingInterceptor.Level.BODY
                         }
                 )
-                .build()
+                .build().asyncCallFactory()
         )
 
         val result: String = halley.encodeToString(
@@ -205,14 +206,14 @@ class MainActivity : AppCompatActivity() {
                 prettyPrint = true,
                 prettyPrintIndent = "  "
             ),
-            httpClient = OkHttpClient.Builder()
+            callFactory = OkHttpClient.Builder()
                 .addInterceptor(
                     HttpLoggingInterceptor()
                         .apply {
                             level = HttpLoggingInterceptor.Level.BODY
                         }
                 )
-                .build()
+                .build().asyncCallFactory()
         )
 
         val input = AssetLoader.loadFile("profile.json")
@@ -230,14 +231,14 @@ class MainActivity : AppCompatActivity() {
                 prettyPrint = true,
                 prettyPrintIndent = "  "
             ),
-            httpClient = OkHttpClient.Builder()
+            callFactory = OkHttpClient.Builder()
                 .addInterceptor(
                     HttpLoggingInterceptor()
                         .apply {
                             level = HttpLoggingInterceptor.Level.BODY
                         }
                 )
-                .build()
+                .build().asyncCallFactory()
         )
 
         val input = AssetLoader.loadFile("profile.json")

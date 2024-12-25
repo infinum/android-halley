@@ -1,5 +1,6 @@
 package com.infinum.halley.core
 
+import com.infinum.halley.core.extensions.asyncCallFactory
 import com.infinum.halley.core.loader.HttpClientCache
 import com.infinum.halley.core.serializers.hal.HalSerializer
 import com.infinum.halley.core.serializers.hal.models.HalResource
@@ -8,11 +9,12 @@ import java.lang.reflect.Type
 import kotlin.reflect.KClass
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
+import okhttp3.Call
 import okhttp3.OkHttpClient
 
 public class Halley(
     private val configuration: Configuration = Configuration(),
-    httpClient: OkHttpClient = OkHttpClient.Builder().build()
+    callFactory: Call.Factory = OkHttpClient.Builder().build().asyncCallFactory(),
 ) {
     public companion object {
         public const val CONTENT_TYPE: String = "application"
@@ -56,7 +58,7 @@ public class Halley(
     }
 
     init {
-        HttpClientCache.save(httpClient)
+        HttpClientCache.save(callFactory)
     }
 
     public fun format(): Json = format

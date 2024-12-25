@@ -1,15 +1,17 @@
 import com.infinum.halley.core.Halley
+import com.infinum.halley.core.extensions.asyncCallFactory
 import com.infinum.halley.ktor.HalleySerializationConverter
 import io.ktor.http.ContentType
 import io.ktor.serialization.Configuration
 import kotlinx.serialization.json.Json
+import okhttp3.Call
 import okhttp3.OkHttpClient
 
 /**
  * Registers the `application/vnd.hal+json` content type to the [HalleyNegotiation] plugin.
  *
  * The example below shows how to register the Halley serializer with
- * customized configuration settings and some HTTP client instance:
+ * customized configuration settings and some HTTP client call factory instance:
  * ```kotlin
  *  install(HalleyPlugin) {
  *      defaultConfiguration(
@@ -18,7 +20,7 @@ import okhttp3.OkHttpClient
  *          prettyPrint = true,
  *          prettyPrintIndent = "  ",
  *          explicitNulls = false,
- *          httpClient = httpClient
+ *          callFactory = callFactory,
  *      )
  *  }
  * ```
@@ -38,7 +40,7 @@ public fun Configuration.defaultConfiguration(
     allowSpecialFloatingPointValues: Boolean =
         Json.Default.configuration.allowSpecialFloatingPointValues,
     useAlternativeNames: Boolean = Json.Default.configuration.useAlternativeNames,
-    httpClient: OkHttpClient = OkHttpClient.Builder().build()
+    callFactory: Call.Factory = OkHttpClient.Builder().build().asyncCallFactory(),
 ) {
     register(
         ContentType.HAL,
@@ -58,7 +60,7 @@ public fun Configuration.defaultConfiguration(
                     allowSpecialFloatingPointValues = allowSpecialFloatingPointValues,
                     useAlternativeNames = useAlternativeNames,
                 ),
-                httpClient = httpClient
+                callFactory = callFactory,
             )
         )
     )

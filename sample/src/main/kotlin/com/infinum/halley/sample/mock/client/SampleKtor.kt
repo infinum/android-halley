@@ -15,10 +15,10 @@ import io.ktor.http.ContentType
 import io.ktor.http.URLProtocol
 import io.ktor.http.contentType
 import io.ktor.http.path
-import okhttp3.OkHttpClient
+import okhttp3.Call
 
 class SampleKtor(
-    private val httpClient: OkHttpClient
+    private val callFactory: Call.Factory,
 ) {
 
     companion object {
@@ -55,7 +55,7 @@ class SampleKtor(
                 prettyPrint = true,
                 prettyPrintIndent = "  ",
                 explicitNulls = false,
-                httpClient = httpClient
+                callFactory = callFactory,
             )
         }
     }
