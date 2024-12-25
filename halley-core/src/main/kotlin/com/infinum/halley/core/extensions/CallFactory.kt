@@ -1,11 +1,11 @@
 package com.infinum.halley.core.extensions
 
+import com.infinum.halley.core.callfactories.AsyncCall.AsyncCallback
 import com.infinum.halley.core.callfactories.AsyncCallFactory
+import com.infinum.halley.core.loader.RelationshipLoader
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import okhttp3.Call
-import com.infinum.halley.core.loader.RelationshipLoader
-import com.infinum.halley.core.callfactories.AsyncCall.AsyncCallback
 
 /**
  * Creates a new [Call.Factory] that executes the callback in a new thread.
