@@ -20,7 +20,7 @@ internal class HalRelationshipLoader : RelationshipLoader {
 
             val requestUrl = appendParameters(url, request.name, request.options)
 
-            HttpClientCache.load().newCall(
+            CallFactoryCache.load().newCall(
                 Request.Builder()
                     .url(requestUrl)
                     .build()
@@ -52,7 +52,7 @@ internal class HalRelationshipLoader : RelationshipLoader {
                         .build()
                 }
             }
-            .forEach { HttpClientCache.load().newCall(it).enqueue(callback) }
+            .forEach { CallFactoryCache.load().newCall(it).enqueue(callback) }
 
         countDownLatch.await()
 

@@ -4,7 +4,7 @@ import com.infinum.halley.core.extensions.asyncCallFactory
 import okhttp3.Call
 import okhttp3.OkHttpClient
 
-internal object HttpClientCache {
+internal object CallFactoryCache {
 
     private var callFactory: Call.Factory = OkHttpClient.Builder().build().asyncCallFactory()
 
