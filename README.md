@@ -190,26 +190,12 @@ val actual: HalModel = halley.decodeFromString(
 ```kotlin
 Retrofit.Builder()
     .addCallAdapterFactory(RxJava3CallAdapterFactory.create()) // Optional only if you use RxJava
-    // Halley for Retrofit provides an extension on KotlinX Serialization Json 
-    .addConverterFactory(Json.asHalleyConverterFactory(callFactory = callFactory))
+    // Halley for Retrofit provides an extension for setting Retrofit's call factory and adding Halley as a converter factory 
+    .withHalley(configuration = configuration, callFactory = callFactory)
     .addConverterFactory(ScalarsConverterFactory.create())
-    .callFactory(callFactory)
     .baseUrl(baseUrl)
     .build()
 ```
-
-> [!TIP]
-> Halley offers a `Call.Factory.asyncCallFactory` extension function to create a `Call.Factory` instance which that executes the callback in a new thread.
-> 
-> By default, OkHttp executes the callback code on the dispatcher thread, meaning that enqueuing another set of calls in the callback can
-> exhaust the dispatcher (default maximum is 5). To free the dispatcher thread as soon as possible, use this factory to **switch the callback
-> execution into another thread from a non-fixed-sized thread pool**. By doing so, that thread (instead of the dispatcher thread) is blocked
-> while waiting for relationship calls to complete.
-> 
-> _Example of creating such `Call.Factory` instance:_
-> ```kotlin
-> val callFactory = OkHttpClient.Builder().build().asyncCallFactory()
-> ```
 
 ### Ktor
 
