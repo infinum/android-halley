@@ -8,6 +8,10 @@ import okhttp3.Call
 import okhttp3.OkHttpClient
 import retrofit2.Converter
 
+@Deprecated(
+    message = "Use Retrofit.Builder.withHalley(configuration, callFactory) instead.",
+    replaceWith = ReplaceWith("Retrofit.Builder.withHalley(configuration, httpClient)"),
+)
 @JvmName("create")
 public fun BinaryFormat.asHalleyConverterFactory(
     configuration: Halley.Configuration = Halley.Configuration(),
@@ -18,6 +22,10 @@ public fun BinaryFormat.asHalleyConverterFactory(
         callFactory = httpClient
     )
 
+@Deprecated(
+    message = "Use Retrofit.Builder.withHalley(configuration, callFactory) instead.",
+    replaceWith = ReplaceWith("Retrofit.Builder.withHalley(configuration, callFactory)"),
+)
 @JvmName("create")
 public fun Json.asHalleyConverterFactory(
     configuration: Halley.Configuration = Halley.Configuration(),
