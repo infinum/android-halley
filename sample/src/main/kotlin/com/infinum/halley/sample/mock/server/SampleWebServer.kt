@@ -1,6 +1,5 @@
 package com.infinum.halley.sample.mock.server
 
-import com.infinum.halley.core.extensions.asyncCallFactory
 import com.infinum.halley.sample.mock.client.SampleClient
 import com.infinum.halley.sample.mock.client.SampleKtor
 import kotlin.concurrent.thread
@@ -19,13 +18,12 @@ class SampleWebServer {
     private var client: SampleClient? = null
     private var ktor: SampleKtor? = null
 
-    private val callFactory: Call.Factory =
-        OkHttpClient.Builder()
-            .addInterceptor(
-                HttpLoggingInterceptor()
-                    .apply { level = HttpLoggingInterceptor.Level.BODY }
-            )
-            .build().asyncCallFactory()
+    private val callFactory: Call.Factory = OkHttpClient.Builder()
+        .addInterceptor(
+            HttpLoggingInterceptor()
+                .apply { level = HttpLoggingInterceptor.Level.BODY }
+        )
+        .build()
 
     fun start() {
         thread {

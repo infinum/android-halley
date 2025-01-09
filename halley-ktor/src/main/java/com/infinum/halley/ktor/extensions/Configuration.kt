@@ -1,5 +1,4 @@
 import com.infinum.halley.core.Halley
-import com.infinum.halley.core.extensions.asyncCallFactory
 import com.infinum.halley.ktor.HalleySerializationConverter
 import io.ktor.http.ContentType
 import io.ktor.serialization.Configuration
@@ -20,7 +19,7 @@ import okhttp3.OkHttpClient
  *          prettyPrint = true,
  *          prettyPrintIndent = "  ",
  *          explicitNulls = false,
- *          callFactory = callFactory,
+ *          httpClient = httpClient,
  *      )
  *  }
  * ```
@@ -40,7 +39,7 @@ public fun Configuration.defaultConfiguration(
     allowSpecialFloatingPointValues: Boolean =
         Json.Default.configuration.allowSpecialFloatingPointValues,
     useAlternativeNames: Boolean = Json.Default.configuration.useAlternativeNames,
-    callFactory: Call.Factory = OkHttpClient.Builder().build().asyncCallFactory(),
+    httpClient: Call.Factory = OkHttpClient.Builder().build(),
 ) {
     register(
         ContentType.HAL,
@@ -60,7 +59,7 @@ public fun Configuration.defaultConfiguration(
                     allowSpecialFloatingPointValues = allowSpecialFloatingPointValues,
                     useAlternativeNames = useAlternativeNames,
                 ),
-                callFactory = callFactory,
+                httpClient = httpClient,
             )
         )
     )

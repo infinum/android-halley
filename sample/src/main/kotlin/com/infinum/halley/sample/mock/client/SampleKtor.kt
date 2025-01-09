@@ -55,7 +55,7 @@ class SampleKtor(
                 prettyPrint = true,
                 prettyPrintIndent = "  ",
                 explicitNulls = false,
-                callFactory = callFactory,
+                httpClient = callFactory,
             )
         }
     }

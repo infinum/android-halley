@@ -14,7 +14,7 @@ import okhttp3.OkHttpClient
 
 public class Halley(
     private val configuration: Configuration = Configuration(),
-    callFactory: Call.Factory = OkHttpClient.Builder().build().asyncCallFactory(),
+    httpClient: Call.Factory = OkHttpClient.Builder().build(),
 ) {
     public companion object {
         public const val CONTENT_TYPE: String = "application"
@@ -58,7 +58,7 @@ public class Halley(
     }
 
     init {
-        CallFactoryCache.save(callFactory)
+        CallFactoryCache.save(httpClient.asyncCallFactory())
     }
 
     public fun format(): Json = format
