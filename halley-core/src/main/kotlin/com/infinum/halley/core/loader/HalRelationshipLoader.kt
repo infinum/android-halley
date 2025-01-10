@@ -7,7 +7,6 @@ import com.infinum.halley.core.serializers.embedded.models.relationship.Relation
 import com.infinum.halley.core.serializers.link.models.templated.params.Arguments
 import com.infinum.halley.core.typealiases.HalleyMap
 import java.util.concurrent.CountDownLatch
-import okhttp3.Call
 import okhttp3.Request
 
 internal class HalRelationshipLoader : RelationshipLoader {
@@ -28,11 +27,10 @@ internal class HalRelationshipLoader : RelationshipLoader {
             )
             try {
                 call.enqueue(callback)
+                countDownLatch.await()
             } catch (ex: InterruptedException) {
                 call.cancel()
             }
-
-            countDownLatch.await()
         }
 
         return result.firstOrNull()
@@ -46,30 +44,28 @@ internal class HalRelationshipLoader : RelationshipLoader {
     ): List<RelationshipResponseHolder> {
         val countDownLatch = CountDownLatch(requests.validParametersSize)
         val callback = LoaderCallback(countDownLatch, result::add)
-        val calls = mutableListOf<Call>()
+
+        val calls = requests
+            .requests
+            .mapNotNull {
+                replaceTemplatePlaceholders(it)?.let { url ->
+                    val requestUrl = appendParameters(url, it.name, it.options)
+                    Request.Builder()
+                        .url(requestUrl)
+                        .build()
+                }
+            }
+            .map {
+                CallFactoryCache.load().newCall(it)
+            }
 
         try {
-            requests
-                .requests
-                .mapNotNull {
-                    replaceTemplatePlaceholders(it)?.let { url ->
-                        val requestUrl = appendParameters(url, it.name, it.options)
-
-                        Request.Builder()
-                            .url(requestUrl)
-                            .build()
-                    }
-                }
-                .forEach {
-                    val newCall = CallFactoryCache.load().newCall(it)
-                    calls.add(newCall)
-                    newCall.enqueue(callback)
-                }
-        } catch (ex: InterruptedException) {
+            calls.forEach { it.enqueue(callback) }
+            countDownLatch.await()
+        } catch (interrupt: InterruptedException) {
             calls.forEach { it.cancel() }
         }
 
-        countDownLatch.await()
         return result.toList()
     }
 
