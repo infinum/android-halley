@@ -28,8 +28,9 @@ internal class HalRelationshipLoader : RelationshipLoader {
             try {
                 call.enqueue(callback)
                 countDownLatch.await()
-            } catch (ex: InterruptedException) {
+            } catch (interruptedException: InterruptedException) {
                 call.cancel()
+                throw interruptedException
             }
         }
 
@@ -62,8 +63,9 @@ internal class HalRelationshipLoader : RelationshipLoader {
         try {
             calls.forEach { it.enqueue(callback) }
             countDownLatch.await()
-        } catch (interrupt: InterruptedException) {
+        } catch (interruptedException: InterruptedException) {
             calls.forEach { it.cancel() }
+            throw interruptedException
         }
 
         return result.toList()
