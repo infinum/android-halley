@@ -20,6 +20,6 @@ import okhttp3.Call
  * @param executorService the executor service to use
  * @return a new [Call.Factory] that executes the callback in a new thread
  */
-public fun Call.Factory.asyncCallFactory(
+public fun Call.Factory.halleyCallFactory(
     executorService: ExecutorService = Executors.newCachedThreadPool(),
 ): Call.Factory = AsyncCallFactory(this, executorService)

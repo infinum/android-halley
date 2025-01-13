@@ -1,6 +1,6 @@
 package com.infinum.halley.core
 
-import com.infinum.halley.core.extensions.asyncCallFactory
+import com.infinum.halley.core.extensions.halleyCallFactory
 import com.infinum.halley.core.loader.CallFactoryCache
 import com.infinum.halley.core.serializers.hal.HalSerializer
 import com.infinum.halley.core.serializers.hal.models.HalResource
@@ -58,7 +58,7 @@ public class Halley(
     }
 
     init {
-        CallFactoryCache.save(httpClient.asyncCallFactory())
+        CallFactoryCache.save(httpClient.halleyCallFactory())
     }
 
     public fun format(): Json = format
