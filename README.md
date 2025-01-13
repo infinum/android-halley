@@ -61,7 +61,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "com.infinum.halley:halley-plugin:0.0.6"
+        classpath "com.infinum.halley:halley-plugin:1.0.0"
     }
 }
 ```
@@ -74,7 +74,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.infinum.halley:halley-plugin:0.0.6")
+        classpath("com.infinum.halley:halley-plugin:1.0.0")
     }
 }
 ```
@@ -104,13 +104,13 @@ Now you can sync your project and core features like serialization and deseriali
 **Groovy**
 
 ```groovy
-implementation "com.infinum.halley:halley-core:0.0.6"
+implementation "com.infinum.halley:halley-core:1.0.0"
 ```
 
 **KotlinDSL**
 
 ```kotlin
-implementation("com.infinum.halley:halley-core:0.0.6")
+implementation("com.infinum.halley:halley-core:1.0.0")
 ```
 
 ### Retrofit
@@ -118,13 +118,13 @@ implementation("com.infinum.halley:halley-core:0.0.6")
 **Groovy**
 
 ```groovy
-implementation "com.infinum.halley:halley-retrofit:0.0.6"
+implementation "com.infinum.halley:halley-retrofit:1.0.0"
 ```
 
 **KotlinDSL**
 
 ```kotlin
-implementation("com.infinum.halley:halley-retrofit:0.0.6")
+implementation("com.infinum.halley:halley-retrofit:1.0.0")
 ```
 
 ### Ktor
@@ -132,13 +132,13 @@ implementation("com.infinum.halley:halley-retrofit:0.0.6")
 **Groovy**
 
 ```groovy
-implementation "com.infinum.halley:halley-ktor:0.0.6"
+implementation "com.infinum.halley:halley-ktor:1.0.0"
 ```
 
 **KotlinDSL**
 
 ```kotlin
-implementation("com.infinum.halley:halley-ktor:0.0.6")
+implementation("com.infinum.halley:halley-ktor:1.0.0")
 ```
 
 ### Retrofit and Ktor together
@@ -146,15 +146,15 @@ implementation("com.infinum.halley:halley-ktor:0.0.6")
 **Groovy**
 
 ```groovy
-implementation "com.infinum.halley:halley-retrofit:0.0.6"
-implementation "com.infinum.halley:halley-ktor:0.0.6"
+implementation "com.infinum.halley:halley-retrofit:1.0.0"
+implementation "com.infinum.halley:halley-ktor:1.0.0"
 ```
 
 **KotlinDSL**
 
 ```kotlin
-implementation("com.infinum.halley:halley-retrofit:0.0.6")
-implementation("com.infinum.halley:halley-ktor:0.0.6")
+implementation("com.infinum.halley:halley-retrofit:1.0.0")
+implementation("com.infinum.halley:halley-ktor:1.0.0")
 ```
 
 ## Usage
