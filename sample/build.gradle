@@ -6,16 +6,17 @@ buildscript {
     }
     dependencies {
         classpath libs.tools.gradle
-        classpath libs.library.plugin
+        // classpath libs.library.plugin
     }
 }
 
 plugins {
     alias libs.plugins.android.application
     alias libs.plugins.kotlin.android
+    id "org.jetbrains.kotlin.plugin.serialization"
 }
 
-apply plugin: "com.infinum.halley.plugin"
+// apply plugin: "com.infinum.halley.plugin"
 
 android {
     compileSdkVersion buildConfig.compileSdk
@@ -70,11 +71,11 @@ android {
 }
 
 dependencies {
-    implementation libs.library.retrofit
-    implementation libs.library.ktor
-//    implementation project(":halley-core")
-//    implementation project(":halley-retrofit")
-//    implementation project(":halley-ktor")
+//    implementation libs.library.retrofit
+//    implementation libs.library.ktor
+    implementation project(":halley-core")
+    implementation project(":halley-retrofit")
+    implementation project(":halley-ktor")
 
     implementation libs.kotlin.core
     implementation libs.bundles.androidx

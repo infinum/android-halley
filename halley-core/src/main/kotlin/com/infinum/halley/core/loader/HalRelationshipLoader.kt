@@ -20,13 +20,18 @@ internal class HalRelationshipLoader : RelationshipLoader {
 
             val requestUrl = appendParameters(url, request.name, request.options)
 
-            HttpClientCache.load().newCall(
+            val call = CallFactoryCache.load().newCall(
                 Request.Builder()
                     .url(requestUrl)
                     .build()
-            ).enqueue(callback)
-
-            countDownLatch.await()
+            )
+            try {
+                call.enqueue(callback)
+                countDownLatch.await()
+            } catch (interruptedException: InterruptedException) {
+                call.cancel()
+                throw interruptedException
+            }
         }
 
         return result.firstOrNull()
@@ -41,20 +46,27 @@ internal class HalRelationshipLoader : RelationshipLoader {
         val countDownLatch = CountDownLatch(requests.validParametersSize)
         val callback = LoaderCallback(countDownLatch, result::add)
 
-        requests
+        val calls = requests
             .requests
             .mapNotNull {
                 replaceTemplatePlaceholders(it)?.let { url ->
                     val requestUrl = appendParameters(url, it.name, it.options)
-
                     Request.Builder()
                         .url(requestUrl)
                         .build()
                 }
             }
-            .forEach { HttpClientCache.load().newCall(it).enqueue(callback) }
+            .map {
+                CallFactoryCache.load().newCall(it)
+            }
 
-        countDownLatch.await()
+        try {
+            calls.forEach { it.enqueue(callback) }
+            countDownLatch.await()
+        } catch (interruptedException: InterruptedException) {
+            calls.forEach { it.cancel() }
+            throw interruptedException
+        }
 
         return result.toList()
     }

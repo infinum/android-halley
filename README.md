@@ -190,10 +190,9 @@ val actual: HalModel = halley.decodeFromString(
 ```kotlin
 Retrofit.Builder()
     .addCallAdapterFactory(RxJava3CallAdapterFactory.create()) // Optional only if you use RxJava
-    // Halley for Retrofit provides an extension on KotlinX Serialization Json 
-    .addConverterFactory(Json.asHalleyConverterFactory())
+    // Halley for Retrofit provides an extension for setting Retrofit's call factory and adding Halley as a converter factory 
+    .withHalley(configuration = configuration, callFactory = callFactory)
     .addConverterFactory(ScalarsConverterFactory.create())
-    .client(httpClient)
     .baseUrl(baseUrl)
     .build()
 ```
