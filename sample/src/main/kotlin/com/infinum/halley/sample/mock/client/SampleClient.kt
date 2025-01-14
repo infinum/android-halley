@@ -2,21 +2,20 @@ package com.infinum.halley.sample.mock.client
 
 import com.infinum.halley.core.Halley
 import com.infinum.halley.retrofit.cache.halleyCommonOptions
-import com.infinum.halley.retrofit.extensions.asHalleyConverterFactory
+import com.infinum.halley.retrofit.extensions.withHalley
 import com.infinum.halley.sample.mock.client.services.SampleCoroutinesService
 import com.infinum.halley.sample.mock.client.services.SampleRxService
 import com.infinum.halley.sample.mock.client.services.SampleService
 import java.util.UUID
-import kotlinx.serialization.json.Json
+import okhttp3.Call
 import okhttp3.HttpUrl
-import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class SampleClient(
     private val baseUrl: HttpUrl,
-    private val httpClient: OkHttpClient
+    private val callFactory: Call.Factory,
 ) {
 
     init {
@@ -39,18 +38,15 @@ class SampleClient(
     val serviceRx: SampleRxService by lazy { retrofit().create(SampleRxService::class.java) }
 
     private fun retrofit(): Retrofit = Retrofit.Builder()
-        .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-        .addConverterFactory(
-            Json.asHalleyConverterFactory(
-                configuration = Halley.Configuration(
-                    prettyPrint = true,
-                    prettyPrintIndent = "  "
-                ),
-                httpClient = httpClient
-            )
+        .withHalley(
+            configuration = Halley.Configuration(
+                prettyPrint = true,
+                prettyPrintIndent = "  "
+            ),
+            callFactory = callFactory,
         )
+        .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .addConverterFactory(ScalarsConverterFactory.create())
-        .client(httpClient)
         .baseUrl(baseUrl)
         .build()
 }

@@ -3,6 +3,7 @@ package com.infinum.halley.sample.mock.server
 import com.infinum.halley.sample.mock.client.SampleClient
 import com.infinum.halley.sample.mock.client.SampleKtor
 import kotlin.concurrent.thread
+import okhttp3.Call
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.mockwebserver.MockWebServer
@@ -17,13 +18,12 @@ class SampleWebServer {
     private var client: SampleClient? = null
     private var ktor: SampleKtor? = null
 
-    private val okhttp: OkHttpClient =
-        OkHttpClient.Builder()
-            .addInterceptor(
-                HttpLoggingInterceptor()
-                    .apply { level = HttpLoggingInterceptor.Level.BODY }
-            )
-            .build()
+    private val callFactory: Call.Factory = OkHttpClient.Builder()
+        .addInterceptor(
+            HttpLoggingInterceptor()
+                .apply { level = HttpLoggingInterceptor.Level.BODY }
+        )
+        .build()
 
     fun start() {
         thread {
@@ -33,8 +33,8 @@ class SampleWebServer {
                 dispatcher = SampleDispatcher()
             }
             mockWebServer?.start(PORT)
-            client = SampleClient(mockWebServer?.url("/api/")!!, okhttp)
-            ktor = SampleKtor(okhttp)
+            client = SampleClient(mockWebServer?.url("/api/")!!, callFactory)
+            ktor = SampleKtor(callFactory)
         }
     }
 

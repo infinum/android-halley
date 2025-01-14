@@ -1,6 +1,13 @@
 Changelog
 =========
 
+## Version 1.0.0
+
+_2025-01-13_
+
+* Add support for further customization of the call factory.
+* Switch the callback execution into another thread to avoid dispatcher exhaustion and ensure proper call cancellation management.
+
 ## Version 0.0.6
 
 _2024-06-28_
