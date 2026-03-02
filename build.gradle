@@ -10,12 +10,12 @@ plugins {
     alias libs.plugins.kotlinx.serialization apply false
     alias libs.plugins.detekt apply false
     alias libs.plugins.ktlint apply false
-//    alias libs.plugins.cpd apply false
+    alias libs.plugins.cpd apply false
     alias libs.plugins.dokka apply false
 }
 
 subprojects {
-//    apply from: "$rootDir/cpd.gradle"
+    apply from: "$rootDir/cpd.gradle"
     apply from: "$rootDir/detekt.gradle"
     apply from: "$rootDir/ktlint.gradle"
     apply from: "$rootDir/dokka.gradle"
