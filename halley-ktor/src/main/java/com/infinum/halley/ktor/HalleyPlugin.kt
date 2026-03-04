@@ -16,8 +16,8 @@ import io.ktor.http.content.OutgoingContent
 import io.ktor.http.contentType
 import io.ktor.serialization.suitableCharset
 import io.ktor.util.AttributeKey
-import io.ktor.util.KtorDsl
 import io.ktor.utils.io.ByteReadChannel
+import io.ktor.utils.io.KtorDsl
 
 public class HalleyPlugin internal constructor(
     private val configuration: HalleyConfiguration
@@ -66,7 +66,7 @@ public class HalleyPlugin internal constructor(
 
                 val serializedContent: OutgoingContent =
                     matchingRegistrations.firstNotNullOfOrNull { registration ->
-                        registration.converter.serializeNullable(
+                        registration.converter.serialize(
                             contentType = contentType,
                             charset = contentType.charset() ?: Charsets.UTF_8,
                             typeInfo = context.bodyType!!,
