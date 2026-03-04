@@ -60,6 +60,7 @@ retrofit-rxjava = { module = "com.squareup.retrofit2:adapter-rxjava3", version.r
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 
 junit5 = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit5" }
+junit-launcher = { module = "org.junit.platform:junit-platform-launcher" }
 
 [bundles]
 kotlin = ["kotlin-core", "kotlin-reflect"]
@@ -69,7 +70,7 @@ ktor = ["ktor-core", "ktor-cio"]
 androidx = ["androidx-core", "androidx-appcompat"]
 coroutines = ["kotlinx-coroutines-android"]
 rxjava = ["retrofit", "retrofit-rxjava", "rxjava-rxandroid"]
-test = ["junit5", "mockwebserver"]
+test = ["junit5", "mockwebserver", "junit-launcher"]
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
