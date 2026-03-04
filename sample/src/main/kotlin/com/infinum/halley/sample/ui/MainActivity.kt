@@ -2,6 +2,7 @@
 package com.infinum.halley.sample.ui
 
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.infinum.halley.core.Halley
 import com.infinum.halley.core.serializers.link.models.Link
@@ -40,6 +41,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
         webServer = SampleWebServer()
