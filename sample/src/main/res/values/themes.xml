@@ -8,6 +8,9 @@
         <item name="colorSecondaryVariant">#00B4D8</item>
         <item name="colorOnSecondary">#000000</item>
         <item name="colorOutline">#00B4D8</item>
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Edge-to-edge support -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
     </style>
 </resources>

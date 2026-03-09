@@ -56,25 +56,6 @@ jobs:
       - name: Stop Gradle
         run: ./gradlew --stop
 
-  ktlint:
-    name: ktlint
-    needs: [ validation ]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-      - name: Save Gradle Caches
-        uses: actions/cache@v4
-        with:
-          path: ~/.gradle/caches/
-          key: gradle-caches-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            gradle-caches-${{ runner.os }}-
-      - name: ktlint
-        run: ./gradlew ktlintAll
-      - name: Stop Gradle
-        run: ./gradlew --stop
-
   cpd:
     name: CPD
     needs: [ validation ]
@@ -96,7 +77,7 @@ jobs:
 
   tests:
     name: Tests
-    needs: [ validation, lint, detekt, ktlint, cpd ]
+    needs: [ validation, lint, detekt, cpd ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

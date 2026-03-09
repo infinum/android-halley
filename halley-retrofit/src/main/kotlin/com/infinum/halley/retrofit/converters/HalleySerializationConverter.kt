@@ -11,7 +11,7 @@ public class HalleySerializationConverter<T>(
     private val halley: Halley
 ) : Converter<T, RequestBody> {
 
-    override fun convert(value: T): RequestBody =
+    override fun convert(value: T): RequestBody? =
         halley
             .encodeToString(value = value as HalResource)
             .toRequestBody("${Halley.CONTENT_TYPE}/${Halley.CONTENT_SUBTYPE}".toMediaType())

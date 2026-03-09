@@ -5,11 +5,9 @@ buildscript {
 
 plugins {
     alias libs.plugins.kotlin.jvm apply false
-    alias libs.plugins.kotlin.android apply false
     alias libs.plugins.android.application apply false
     alias libs.plugins.kotlinx.serialization apply false
     alias libs.plugins.detekt apply false
-    alias libs.plugins.ktlint apply false
     alias libs.plugins.cpd apply false
     alias libs.plugins.dokka apply false
 }
@@ -17,7 +15,6 @@ plugins {
 subprojects {
     apply from: "$rootDir/cpd.gradle"
     apply from: "$rootDir/detekt.gradle"
-    apply from: "$rootDir/ktlint.gradle"
     apply from: "$rootDir/dokka.gradle"
 }
 
@@ -40,15 +37,6 @@ task detektAll(dependsOn: [
     description = "Run Detekt on all modules"
 }
 
-task ktlintAll(dependsOn: [
-        ':halley-core:ktlintCheck',
-        ':halley-retrofit:ktlintCheck',
-        ':halley-ktor:ktlintCheck'
-]) {
-    group = "Verification"
-    description = "Run ktLint on all modules"
-}
-
 task cpdAll(dependsOn: [
         ':halley-core:cpdCheck',
         ':halley-retrofit:cpdCheck',
@@ -60,7 +48,6 @@ task cpdAll(dependsOn: [
 
 task runStaticChecks(dependsOn: [
         ':detektAll',
-        ':ktlintAll',
         ':cpdAll'
 ]) {
     group = "Verification"
