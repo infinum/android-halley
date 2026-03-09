@@ -68,3 +68,6 @@ internal const val halleyVersion = "${releaseConfig.version}"
 }
 
 tasks.getByName('compileKotlin').dependsOn('pluginVersion')
+tasks.matching { it.name.startsWith("dokkaGenerate") }.configureEach {
+    dependsOn('pluginVersion')
+}

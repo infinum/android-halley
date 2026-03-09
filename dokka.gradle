@@ -1,19 +1,15 @@
 apply plugin: "org.jetbrains.dokka"
 
 dokka {
-    dokkaPublications.configureEach {
+    dokkaPublications.html {
         outputDirectory.set(file("$buildDir/dokka"))
     }
 
     dokkaSourceSets.configureEach {
-        includeNonPublic.set(false)
         skipDeprecated.set(true)
         reportUndocumented.set(true)
         skipEmptyPackages.set(true)
         jdkVersion.set(8)
-        noStdlibLink.set(false)
-        noJdkLink.set(false)
-        noAndroidSdkLink.set(false)
 
         sourceLink {
             localDirectory.set(file("src/main/kotlin"))
@@ -22,15 +18,15 @@ dokka {
         }
 
         perPackageOption {
-            matchingPackageOptimization.set("com.infinum.halley.core.extensions")
+            matchingRegex.set("com\\.infinum\\.halley\\.core\\.extensions.*")
             suppress.set(true)
         }
         perPackageOption {
-            matchingPackageOptimization.set("com.infinum.halley.retrofit.extensions")
+            matchingRegex.set("com\\.infinum\\.halley\\.retrofit\\.extensions.*")
             suppress.set(true)
         }
         perPackageOption {
-            matchingPackageOptimization.set("com.infinum.halley.sample")
+            matchingRegex.set("com\\.infinum\\.halley\\.sample.*")
             suppress.set(true)
         }
     }
