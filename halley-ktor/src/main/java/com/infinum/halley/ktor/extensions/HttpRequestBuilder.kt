@@ -1,4 +1,3 @@
-// CPD-OFF
 import com.infinum.halley.core.Halley
 import com.infinum.halley.core.serializers.link.models.templated.params.Arguments
 import com.infinum.halley.ktor.configuration.HalOptions
@@ -37,4 +36,3 @@ private fun HttpRequestBuilder.halOptions(options: HalOptions) {
         options.template?.let { put(options.templateHalKey, it) }
     }
 }
-// CPD-ON

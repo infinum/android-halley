@@ -1,4 +1,3 @@
-// CPD-OFF
 package com.infinum.halley.sample.data.models.deserialization
 
 import com.infinum.halley.core.annotations.HalEmbedded
@@ -40,4 +39,3 @@ data class ProfileResource(
     val categorizedAnimals: Map<String, List<AnimalResource>>? = null
 
 ) : HalResource
-// CPD-ON

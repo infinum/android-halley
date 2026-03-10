@@ -1,4 +1,3 @@
-// CPD-OFF
 package com.infinum.halley.sample.mock.client.services
 
 import com.infinum.halley.retrofit.annotations.HalArgumentEntry
@@ -77,4 +76,3 @@ interface SampleService {
     @HalTag("profileWithAnnotatedAndImperativeOptionsRetrofit")
     fun profileWithAnnotatedAndImperativeOptions(): Call<ProfileResource>
 }
-// CPD-ON
