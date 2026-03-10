@@ -1,4 +1,3 @@
-// CPD-OFF
 package com.infinum.halley.sample.data.models.deserialization
 
 import com.infinum.halley.core.annotations.HalEmbedded
@@ -26,4 +25,3 @@ data class OtherProfileResource(
     val user: UserResource? = null
 
 ) : HalResource
-// CPD-ON

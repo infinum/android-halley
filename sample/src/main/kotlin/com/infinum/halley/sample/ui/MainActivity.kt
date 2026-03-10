@@ -1,4 +1,3 @@
-// CPD-OFF
 package com.infinum.halley.sample.ui
 
 import android.os.Bundle
@@ -547,4 +546,3 @@ class MainActivity : AppCompatActivity() {
         ResultFragment().show(supportFragmentManager, result)
     }
 }
-// CPD-ON

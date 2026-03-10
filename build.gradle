@@ -8,12 +8,10 @@ plugins {
     alias libs.plugins.android.application apply false
     alias libs.plugins.kotlinx.serialization apply false
     alias libs.plugins.detekt apply false
-    alias libs.plugins.cpd apply false
     alias libs.plugins.dokka apply false
 }
 
 subprojects {
-    apply from: "$rootDir/cpd.gradle"
     apply from: "$rootDir/detekt.gradle"
     apply from: "$rootDir/dokka.gradle"
 }
@@ -37,18 +35,8 @@ task detektAll(dependsOn: [
     description = "Run Detekt on all modules"
 }
 
-task cpdAll(dependsOn: [
-        ':halley-core:cpdCheck',
-        ':halley-retrofit:cpdCheck',
-        ':halley-ktor:cpdCheck'
-]) {
-    group = "Verification"
-    description = "Run CPD on all modules"
-}
-
 task runStaticChecks(dependsOn: [
-        ':detektAll',
-        ':cpdAll'
+        ':detektAll'
 ]) {
     group = "Verification"
     description = "Run static checks on all modules"

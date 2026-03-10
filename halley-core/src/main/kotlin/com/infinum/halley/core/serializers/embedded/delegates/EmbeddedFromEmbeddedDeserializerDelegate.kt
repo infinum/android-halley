@@ -30,7 +30,6 @@ internal class EmbeddedFromEmbeddedDeserializerDelegate<T : HalResource>(
                 childKlazz as KClass<T>,
                 options
             )
-// CPD-OFF
             if (List::class.java.isAssignableFrom(klazz.java)) {
                 val value: List<T> =
                     decoder.json.decodeFromJsonElement(ListSerializer(itemSerializer), jsonArray)
@@ -48,7 +47,6 @@ internal class EmbeddedFromEmbeddedDeserializerDelegate<T : HalResource>(
             } else {
                 property.setField(result, null)
             }
-// CPD-ON
         }
     }
 
